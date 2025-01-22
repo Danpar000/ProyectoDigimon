@@ -7,12 +7,29 @@ function is_valid_username(string $username): bool {
     return false;
 }
 
-function HayNulos(array $camposNoNulos, array $arrayDatos): array
-{
+function is_valid_name(string $name):bool {
+    if (preg_match('/^[a-zA-Z0-9]+$/', $name)){
+        return true;
+    };
+    return false;
+}
+
+function HayNulos(array $camposNoNulos, array $arrayDatos): array{
     $nulos = [];
     foreach ($camposNoNulos as $index => $campo) {
-        if (!isset($arrayDatos[$campo]) || empty($arrayDatos[$campo]) || $arrayDatos[$campo] == null) {
-            $nulos[] = $campo;
+        switch ($campo) {
+            case "image":
+            case "imageVictory":
+            case "imageDefeat":
+                if ($arrayDatos[$campo]["error"] === 4){
+                    $nulos[] = $campo;
+                }
+                break;
+            default:
+                if (!isset($arrayDatos[$campo]) || empty($arrayDatos[$campo]) || $arrayDatos[$campo] == null) {
+                    $nulos[] = $campo;
+                }
+                break;
         }
     }
     return $nulos;
@@ -22,6 +39,25 @@ function existeValor(array $array, string $campo, mixed $valor): bool
 {
         return in_array ($array[$campo],$valor);
 
+}
+
+function checkSizeFormat(array $campos, array $arrayDatos) {
+    $maxSize = 3 * 1024 * 1024;
+    $permitir = ["jpg", "png", "gif"];
+    $errores = [];
+
+    foreach ($campos as $campo) {
+        if (!isset($arrayDatos[$campo]) || $arrayDatos[$campo]["error"] === 4) {
+            continue;
+        }
+
+        $extension = strtolower(pathinfo($arrayDatos[$campo]["name"], PATHINFO_EXTENSION));
+        if ($arrayDatos[$campo]["size"] > $maxSize || !in_array($extension, $permitir)) {
+            $errores[] = $campo;
+        }
+    }
+
+    return $errores;
 }
 
 function DibujarErrores($errores, $campo)

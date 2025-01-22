@@ -82,10 +82,24 @@ if (isset($_REQUEST["error"])) {
       </div>
 
       <div class="form-group">
-        <label for="image">Imagen</label>
+        <label for="image">Imagen Principal</label>
         <input type="file" required class="form-control" id="image" name="image" accept="image/png, image/jpeg, image/jpg, image/gif"
           value="<?= $_SESSION["datos"]["image"]["tmp_name"] ?? "" ?>">
         <?= isset($errores["image"]) ? '<div class="alert alert-danger" role="alert">' . DibujarErrores($errores, "image") . '</div>' : ""; ?>
+      </div>
+
+      <div class="form-group">
+        <label for="imageVictory">Imagen Victoria</label>
+        <input type="file" required class="form-control" id="imageVictory" name="imageVictory" accept="image/png, image/jpeg, image/jpg, image/gif"
+          value="<?= $_SESSION["datos"]["imageVictory"]["tmp_name"] ?? "" ?>">
+        <?= isset($errores["imageVictory"]) ? '<div class="alert alert-danger" role="alert">' . DibujarErrores($errores, "imageVictory") . '</div>' : ""; ?>
+      </div>
+
+      <div class="form-group">
+        <label for="imageDefeat">Imagen Derrota</label>
+        <input type="file" required class="form-control" id="imageDefeat" name="imageDefeat" accept="image/png, image/jpeg, image/jpg, image/gif"
+          value="<?= $_SESSION["datos"]["imageDefeat"]["tmp_name"] ?? "" ?>">
+        <?= isset($errores["imageDefeat"]) ? '<div class="alert alert-danger" role="alert">' . DibujarErrores($errores, "imageDefeat") . '</div>' : ""; ?>
       </div>
 
       <button type="submit" class="btn btn-primary">Guardar</button>

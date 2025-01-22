@@ -28,7 +28,7 @@ isset($digimon->next_evolution_id) ? $next_digimon = $controlador->ver($digimon-
                     Defensa: <?= $digimon->defense ?><br>
                     Siguiente evolución: <?= isset($next_digimon) ? $next_digimon->name : "Ninguna" ?><br>
                 </p>
-                <img src="assets/img/digimons/<?= $digimon->name?>/base.jpg" width="150"><br>
+                <img src="assets/img/digimons/<?= $digimon->name?>/base.png" width="150"><br>
                 <a href="index.php" class="btn btn-primary">Volver a Inicio</a>
             </div>
         </div>

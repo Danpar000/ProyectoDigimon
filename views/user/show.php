@@ -23,6 +23,7 @@ $user = $controlador->ver($id);
                     Usuario: <?= $user->username ?> <br>
                     Digievoluciones: <?= $user->digievolutions ?> <br>
                 </p>
+                <img src="assets/img/users/<?= $user->username?>/profile.png" width="150"><br>
                 <a href="index.php" class="btn btn-primary">Volver a Inicio</a>
             </div>
         </div>

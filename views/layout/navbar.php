@@ -21,30 +21,10 @@
             <i class="fas fa-user-tie"></i> Digimons</a>
             <ul class="dropdown-menu dropdown-menu-dark">
               <li><a class="dropdown-item" href="index.php?tabla=digimons&accion=crear">Añadir</a></li>
-              <li><a class="dropdown-item" href="index.php?tabla=digimons&accion=listar">Listar </a></li>
+              <!-- <li><a class="dropdown-item" href="index.php?tabla=digimons&accion=listar">Listar </a></li> -->
               <li><a class="dropdown-item" href="index.php?tabla=digimons&accion=buscar">Buscar </a></li>
           </ul>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="index.php" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="fas fa-project-diagram"></i> Proyectos</a>
-            <ul class="dropdown-menu dropdown-menu-dark">
-              <li><a class="dropdown-item" href="index.php?tabla=project&accion=crear">Añadir</a></li>
-              <li><a class="dropdown-item" href="index.php?tabla=project&accion=buscar">Buscar </a></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="index.php" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="fas fa-tasks"></i> Mis Tareas</a>
-            <ul class="dropdown-menu dropdown-menu-dark">
-              <li><a class="dropdown-item" href="index.php?tabla=task&accion=buscar">Buscar </a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="shopping-cart"></span>
-              <i class="fas fa-car"></i> Productos</a>
-            </a>
         </ul>
 
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">

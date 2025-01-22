@@ -23,7 +23,7 @@ if (isset($_REQUEST["error"])) {
     // $visibilidad=(isset($_REQUEST["error"]))?"visible":"invisible";
     ?>
     <div id="alerta" class="alert alert-danger <?=$visibilidad?>" ><?=$cadena?></div>
-    <form action="index.php?tabla=user&accion=guardar&evento=crear" method="POST" id="miform" name="miform">
+    <form action="index.php?tabla=user&accion=guardar&evento=crear" method="POST" id="miform" name="miform" enctype="multipart/form-data">
       <div class="form-group">
         <label for="username">Usuario</label>
         <input type="text" required class="form-control" id="username" name="username" aria-describedby="username" placeholder="Introduce Usuario" value="<?= $_SESSION["datos"]["username"] ?? "" ?>" maxlength="50">
@@ -39,6 +39,11 @@ if (isset($_REQUEST["error"])) {
         <label for="digievolutions">Digievoluciones</label>
         <input type="number" required class="form-control" id="digievolutions" name="digievolutions" value="<?= $_SESSION["datos"]["digievolutions"] ?? "" ?>">
         <?= isset($errores["digievolutions"]) ? '<div class="alert alert-danger" role="alert">' . DibujarErrores($errores, "digievolutions") . '</div>' : ""; ?>
+      </div>
+      <div class="form-group">
+        <label for="image">Foto de Perfil (Opcional)</label>
+        <input type="file" class="form-control" id="image" name="image" accept="image/png, image/jpeg, image/jpg, image/gif" value="<?= $_SESSION["datos"]["image"]["tmp_name"] ?? "" ?>">
+        <?= isset($errores["image"]) ? '<div class="alert alert-danger" role="alert">' . DibujarErrores($errores, "image") . '</div>' : ""; ?>
       </div>
       <button type="submit" class="btn btn-primary">Guardar</button>
       <a class="btn btn-danger" href="index.php">Cancelar</a>

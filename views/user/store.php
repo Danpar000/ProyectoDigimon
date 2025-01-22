@@ -14,7 +14,8 @@ $arrayUser=[
     "usernameOriginal"=>($_REQUEST["usernameOriginal"])??"",
     "password"=>$_REQUEST["password"],
     "passwordOriginal"=>($_REQUEST["passwordOriginal"])??"",
-    "digievolutions"=>$_REQUEST["digievolutions"]
+    "digievolutions"=>$_REQUEST["digievolutions"],
+    "image" => isset($_FILES["image"]) && $_FILES["image"]["error"] === 0 ? $_FILES["image"] : null
  ];
 
 //pagina invisible

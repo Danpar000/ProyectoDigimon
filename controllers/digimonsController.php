@@ -1,13 +1,10 @@
 <?php
-// $ruta=(!isset($_REQUEST["json"]))?"":"../";
-// require_once $ruta . "models/digimonModel.php";
 if (isset($_REQUEST["funcion"])) {
     require_once "../models/digimonModel.php";
 } else {
     require_once "models/digimonModel.php";
 }
 // require_once "models/digimonModel.php";
-
 class DigimonsController { 
     private $model;
 
@@ -24,7 +21,11 @@ class DigimonsController {
         }
     
         // ERRORES DE TIPO
-    
+        // Formato del nombre
+        if (!is_valid_name($arrayDigimon["name"])) {
+            $error = true;
+            $errores["name"][] = "Solo puedes usar letras y números en el nombre del Digimon";
+        }
 
         //Ya existe
         if ($this->model->exists("name", $arrayDigimon["name"])) {
@@ -33,7 +34,7 @@ class DigimonsController {
         }
 
         //campos NO VACIOS
-        $arrayNoNulos = ["name", "attack", "defense", "type", "level"];
+        $arrayNoNulos = ["name", "attack", "defense", "type", "level", "image", "imageVictory", "imageDefeat"];
         $nulos = HayNulos($arrayNoNulos, $arrayDigimon);
         if (count($nulos) > 0) {
             $error = true;
@@ -55,6 +56,17 @@ class DigimonsController {
             }
         }
 
+        // Tamaño imagen y formato
+        $campos = ["image", "imageVictory", "imageDefeat"];
+        $imageError = checkSizeFormat($campos, $_FILES);
+
+        if (count($imageError) > 0) {
+            $error = true;
+            foreach ($imageError as $campo) {
+                $errores[$campo][] = "El campo {$campo} tiene un tamaño de imagen o formato incorrectos (JPG, PNG, GIF - 3MB Máx.).";
+            }
+        }
+
         $id = null;
         if (!$error) $id = $this->model->insert ($arrayDigimon);
 
@@ -68,19 +80,20 @@ class DigimonsController {
             unset($_SESSION["datos"]);
             $redireccion = "location:index.php?tabla=digimons&accion=ver&id=".$id;
 
+            // Creo carpeta
             if(!mkdir("assets/img/digimons/".$arrayDigimon["name"], 0755, true)) {
                 die('Fallo al crear las carpetas...');
             }
 
-            //$temporal = $_FILES["image"]["tmp_name"];
-            $temporal = $arrayDigimon["image"]["tmp_name"];
-            $destino = "assets/img/digimons/{$arrayDigimon['name']}/base.jpg";
+            // Subo las imágenes
+            $temporalBase = $arrayDigimon["image"]["tmp_name"];
+            $temporalVictory = $arrayDigimon["imageVictory"]["tmp_name"];
+            $temporalDefeat = $arrayDigimon["imageDefeat"]["tmp_name"];
+            $destino = "assets/img/digimons/{$arrayDigimon['name']}/";
 
-            if (move_uploaded_file($temporal, $destino)) {
-                echo "Se subio bien";
-            } else {
-                $redireccion = "qweqwe";
-            }
+            (!move_uploaded_file($temporalBase, $destino."base.png")) ? $redireccion .= "&error=true&id={$id}" : "";
+            (!move_uploaded_file($temporalVictory, $destino."victory.png")) ? $redireccion .= "&error=true&id={$id}" : "";
+            (!move_uploaded_file($temporalDefeat, $destino."defeat.png")) ? $redireccion .= "&error=true&id={$id}" : "";
         }
 
         header ($redireccion);
@@ -102,10 +115,17 @@ class DigimonsController {
     }
 
     public function borrar(int $id): void {
+        $name = $this->ver($id);
+        $ruta = "assets/img/digimons/{$name->name}";
+        $files = "*.png";
         $borrado = $this->model->delete($id);
         //$redireccion = "location:index.php?accion=listar&tabla=digimons&evento=borrar&id={$id}";
         $redireccion = "location:index.php?tabla=digimons&accion=buscar&evento=todos";
-        if ($borrado == false) $redireccion .=  "&error=true";
+        if ($borrado == false) {
+            $redireccion .=  "&error=true";
+        } else {
+            $this->borrarCarpeta($ruta, $files);
+        }
         header($redireccion);
         exit();
     }
@@ -171,6 +191,20 @@ class DigimonsController {
         //     }
         // }
         return $digimons;
+    }
+
+    private function borrarCarpeta($ruta, $file) {
+        if (!is_dir($ruta)) {
+            return false;
+        } else {
+            $files = glob($ruta . DIRECTORY_SEPARATOR . $file);
+            foreach ($files as $fileToDelete) {
+                if (is_file($fileToDelete)) {
+                    unlink($fileToDelete);
+                }
+            }
+            rmdir($ruta);
+        }
     }
 
     // private function esBorrable(stdClass $digimon): bool

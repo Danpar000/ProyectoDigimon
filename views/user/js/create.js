@@ -1,46 +1,43 @@
-// document.addEventListener("DOMContentLoaded", function() {
-//     document.getElementById("miform").addEventListener("submit", validarForm);
-// });
+function validarForm(evento) {
+    evento.preventDefault();
+    let error = false;
+    let errores = "";
+    let username = document.getElementById("username").value;
+    let alerta = document.getElementById("alerta");
 
-// function validarForm(evento) {
-//     evento.preventDefault();
-//     let errores = false;
-//     let error = "";
-//     let username = document.getElementById("usuario").value;
-//     let password = document.getElementById("password").value;
+    alerta.innerHTML = "";
+    alerta.className = "alert alert-danger invisible";
 
-//     if (!isValidUsername(username)) {
-//         error += " Formato usuario incorrecto<br> ";
-//         errores = true;
-//     }
+    if (!isValidUsername(username)) {
+        error = true;
+        errores += "El username solo puede contener letras y números.";
+    }
 
-//     if (!isValidPassword(password)) {
-//         error += " Formato Contraseña incorrecta (Tamaño mínimo 6, al menos una letra minuscula, una mayuscula, un número y un símbolo entre: .,-_)<br> ";
-//         errores = true;
-//     }
+    if (!checkLength(username)) {
+        error = true;
+        errores += "\nEl campo username no puede exceder 50 caracteres.";
+    }
 
-//     document.getElementById("alerta").innerHTML = error;
+    if (error) {
+        alerta.innerHTML = errores;
+        alerta.className = "alert alert-danger visible";
+    } else {
+        let enviar = confirm("¿Quieres crear el usuario con estos datos?");
+        if (enviar) {
+            document.getElementById("miform").submit();
+        }
+    }
+}
 
-//     if (!errores) {
-//         document.getElementById("miform").submit();
-//     }
-// }
+function isValidUsername(username) {
+    const pattern = /^[a-zA-Z0-9]+$/;
+    return pattern.test(username);
+}
 
-// function isValidPassword(password) {
-//     const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.,-_])[A-Za-z\d.,-_]{6,}$/;
-//     if (!pattern.test(password)) {
-//         document.getElementById("alerta").className = "alert alert-danger visible";
-//         return false;
-//     }
-//     return true;
-// }
+function checkLength(username) {
+    return username.length <= 50;
+}
 
-// function isValidUsername(username) {
-//     const pattern = /^[0-9A-Za-z]+$/;
-//     if (!pattern.test(username)) {
-//         document.getElementById("alerta").className = "alert alert-danger visible";
-//         return false;
-//     }
-//     return true;
-// }
-
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("miform").addEventListener("submit", validarForm);
+});

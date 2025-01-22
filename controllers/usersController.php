@@ -18,17 +18,45 @@ class UsersController {
         }
     
         // ERRORES DE TIPO
-    
+        // Formato del nombre
+        if (!is_valid_username($arrayUser["username"])){
+            $error = true;
+            $errores["username"][] = "Solo puedes usar letras y números en el nombre del usuario";
+        }
+
         //campos NO VACIOS
         $arrayNoNulos = ["username", "password", "digievolutions"];
         $nulos = HayNulos($arrayNoNulos, $arrayUser);
         if (count($nulos) > 0) {
             $error = true;
             for ($i = 0; $i < count($nulos); $i++) {
-                $errores[$nulos[$i]][] = "El campo {$nulos[$i]} NO puede estar vacio";
+                $errores[$nulos[$i]][] = "El campo {$nulos[$i]} no puede estar vacio";
             }
         }
+
+        //Ya existe
+        if ($this->model->exists("username", $arrayUser["username"])) {
+            $errores["name"][] = "Este usuario ya está registrado";
+            $error = true;
+        }
         
+        // Digievolución negativa
+        if ($arrayUser["digievolutions"] < 0) {
+            $error = true;
+            $errores["digievolutions"][] = "No puedes tener digievoluciones negativas";
+        }
+
+        // Tamaño imagen y formato
+        $campos = ["image"];
+        $imageError = checkSizeFormat($campos, $_FILES);
+
+        if (count($imageError) > 0) {
+            $error = true;
+            foreach ($imageError as $campo) {
+                $errores[$campo][] = "El campo {$campo} tiene un tamaño de imagen o formato incorrectos (JPG, PNG, GIF - 3MB Máx.).";
+            }
+        }
+
         $id = null;
         if (!$error) $id = $this->model->insert ($arrayUser);
 
@@ -41,6 +69,31 @@ class UsersController {
             unset($_SESSION["errores"]);
             unset($_SESSION["datos"]);
             $redireccion = "location:index.php?tabla=user&accion=ver&id=".$id;
+
+            // CREAR DIRECTORIO
+            if (!mkdir("assets/img/users/".$arrayUser["username"], 0755, true)) {
+                die('Fallo al crear las carpetas...');
+            }
+
+            // SUBIR FOTOS
+            if (isset($arrayUser["image"]) && $arrayUser["image"]["error"] === 0) { 
+                // Hay foto subida
+                $temporal = $arrayUser["image"]["tmp_name"];
+                $destino = "assets/img/users/{$arrayUser['username']}/profile.png";
+                if (!move_uploaded_file($temporal, $destino)) {
+                    echo "No se pudo mover la imagen.";
+                    $redireccion .= "arriba";
+                }
+            } else {
+                // No hay foto
+                $defaultImage = "assets/img/users/default.png";
+                $destino = "assets/img/users/{$arrayUser['username']}/profile.png";
+                if (!copy($defaultImage, $destino)) {
+                    echo "No se pudo copiar la imagen.";
+                    $redireccion .= "abajo";
+                }
+            }
+
         }
         
         header ($redireccion);

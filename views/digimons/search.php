@@ -106,7 +106,7 @@ if (isset($_REQUEST["evento"])) {
                     ?>
                         <tr>
                             <th scope="row"><?= $digimon->id ?></th>
-                            <td><?= $digimon->name ?><br><img src="assets/img/digimons/<?= $digimon->name?>/base.jpg" width="75"></td>
+                            <td><?= $digimon->name ?><br><img src="assets/img/digimons/<?= $digimon->name?>/base.png" width="75"></td>
                             <td><?= $digimon->attack ?></td>
                             <td><?= $digimon->defense?></td>
                             <td><?= $digimon->type?></td>
