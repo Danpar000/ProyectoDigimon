@@ -1,5 +1,5 @@
 <?php
-require_once "controllers/DigimonsController.php";
+require_once "controllers/digimonsController.php";
 //recoger datos
 if (!isset ($_REQUEST["id"]) && $_REQUEST["evento"] == "modificar"){
    header('Location:index.php?tabla=digimons&accion=crear' );
@@ -12,8 +12,10 @@ $arrayDigimon=[
                 "id"=>$id,
                 "name"=>$_REQUEST["name"],
                 "nameOriginal"=>($_REQUEST["nameOriginal"])??"",
+                "health"=>$_REQUEST["health"],
                 "attack"=>$_REQUEST["attack"],
                 "defense"=>$_REQUEST["defense"],
+                "speed"=>$_REQUEST["speed"],
                 "type"=>($_REQUEST["type"])??"",
                 "level"=>$_REQUEST["level"],
                 "next_evolution_id" => ($_REQUEST["next_evolution_id"] !== "" && $_REQUEST["next_evolution_id"] !== "null") ? $_REQUEST["next_evolution_id"] : null,

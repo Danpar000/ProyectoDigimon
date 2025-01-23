@@ -34,7 +34,7 @@ class DigimonsController {
         }
 
         //campos NO VACIOS
-        $arrayNoNulos = ["name", "attack", "defense", "type", "level", "image", "imageVictory", "imageDefeat"];
+        $arrayNoNulos = ["name", "health", "attack", "defense", "speed", "type", "level", "image", "imageVictory", "imageDefeat"];
         $nulos = HayNulos($arrayNoNulos, $arrayDigimon);
         if (count($nulos) > 0) {
             $error = true;
@@ -141,23 +141,12 @@ class DigimonsController {
         // ERRORES DE TIPO
     
         //campos NO VACIOS
-        $arrayNoNulos = ["name", "attack", "defense", "type", "level"];
+        $arrayNoNulos = ["health", "attack", "defense", "speed"];
         $nulos = HayNulos($arrayNoNulos, $arrayDigimon);
         if (count($nulos) > 0) {
             $error = true;
             for ($i = 0; $i < count($nulos); $i++) {
                 $errores[$nulos[$i]][] = "El campo {$nulos[$i]} NO puede estar vacio.";
-            }
-        }
-        
-        //CAMPOS UNICOS
-        $arrayUnicos = [];
-        if ($arrayDigimon["name"] != $arrayDigimon["nameOriginal"]) $arrayUnicos[] = "name";
-    
-        foreach ($arrayUnicos as $CampoUnico) {
-            if ($this->model->exists($CampoUnico, $arrayDigimon[$CampoUnico])) {
-                $errores[$CampoUnico][] = "El {$CampoUnico}  {$arrayDigimon[$CampoUnico]}  ya existe.";
-                $error = true;
             }
         }
     

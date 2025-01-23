@@ -18,14 +18,16 @@ class DigimonModel {
     }
    
     public function insert(array $digimon):?int { //devuelve entero o null
-        $sql = "INSERT INTO digimons(name, attack, defense, type, level, next_evolution_id)
-                VALUES(:name, :attack, :defense, :type, :level, :next_evolution_id);";
+        $sql = "INSERT INTO digimons(name, health, attack, defense, speed, type, level, next_evolution_id)
+                VALUES(:name, :health, :attack, :defense, :speed, :type, :level, :next_evolution_id);";
         try {
             $sentencia = $this->conexion->prepare($sql);
             $arrayDatos = [
                 ":name" => $digimon["name"],
+                ":health" => $digimon["health"],
                 ":attack" => $digimon["attack"],
                 ":defense" => $digimon["defense"],
+                ":speed" => $digimon["speed"],
                 ":type" => $digimon["type"],
                 ":level" => $digimon["level"],
                 ":next_evolution_id" => $digimon["next_evolution_id"]

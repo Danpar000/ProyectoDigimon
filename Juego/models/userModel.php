@@ -1,6 +1,11 @@
 <?php
-require_once('config/db.php');
-require_once('assets/php/funciones.php');
+if (isset($_REQUEST["funcion"])) {
+    require_once "../config/db.php";
+    require_once "../assets/php/funciones.php";
+} else {
+    require_once "config/db.php";
+    require_once "assets/php/funciones.php";
+}
 class UserModel
 {
     private $conexion;

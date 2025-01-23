@@ -18,14 +18,16 @@ class DigimonModel {
     }
    
     public function insert(array $digimon):?int { //devuelve entero o null
-        $sql = "INSERT INTO digimons(name, attack, defense, type, level, next_evolution_id)
-                VALUES(:name, :attack, :defense, :type, :level, :next_evolution_id);";
+        $sql = "INSERT INTO digimons(name, health, attack, defense, speed, type, level, next_evolution_id)
+                VALUES(:name, :health, :attack, :defense, :speed, :type, :level, :next_evolution_id);";
         try {
             $sentencia = $this->conexion->prepare($sql);
             $arrayDatos = [
                 ":name" => $digimon["name"],
+                ":health" => $digimon["health"],
                 ":attack" => $digimon["attack"],
                 ":defense" => $digimon["defense"],
+                ":speed" => $digimon["speed"],
                 ":type" => $digimon["type"],
                 ":level" => $digimon["level"],
                 ":next_evolution_id" => $digimon["next_evolution_id"]
@@ -79,19 +81,15 @@ class DigimonModel {
         try {
             // No hago el cambio si es la misma
 
-            $sql = "UPDATE digimons SET name = :name, attack = :attack,
-                    defense = :defense, type = :type, level = :level,
-                    next_evolution_id = :next_evolution_id, image = :image";
+            $sql = "UPDATE digimons SET health = :health, attack = :attack,
+                    defense = :defense, speed = :speed";
 
             $arrayDatos=[
                 ":id"=>$idAntiguo,
-                ":name"=>$arrayDigimon["name"],
+                ":health"=>$arrayDigimon["health"],
                 ":attack"=>$arrayDigimon["attack"],
                 ":defense"=>$arrayDigimon["defense"],
-                ":type"=>$arrayDigimon["type"],
-                ":level"=>$arrayDigimon["level"],
-                ":next_evolution_id"=>$arrayDigimon["next_evolution_id"],
-                ":image"=>$arrayDigimon["image"]
+                ":speed"=>$arrayDigimon["speed"],
                 ];
 
             $sentencia = $this->conexion->prepare($sql);

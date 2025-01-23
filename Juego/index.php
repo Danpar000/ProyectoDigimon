@@ -17,6 +17,8 @@ require_once("views/layout/head.php");
 
 $vista = router();
 ?>
+
+
 <div class="container-fluid">
     <div class="row">
         <?php

@@ -1,5 +1,10 @@
 <?php
-require_once "models/userModel.php";
+if (isset($_REQUEST["funcion"])) {
+    require_once "../models/userModel.php";
+} else {
+    require_once "models/userModel.php";
+}
+
 // require_once "controllers/projectsController.php";
 
 class UsersController { 
@@ -15,6 +20,11 @@ class UsersController {
 
     public function listar () {
         return $this->model->readAll();
+    }
+
+    public function getSessionUsername() {
+        header('Content-Type: application/json');
+        echo json_encode($_SESSION["username"]->username);
     }
 
     public function editar(string $id, array $arrayUser): void {
