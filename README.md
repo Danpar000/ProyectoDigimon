@@ -1,3 +1,10 @@
+IMPORTANTE:
+
+1) Tener npm instalado (hacer npm install)
+2) En linux ejecutar todo con sudo (sudo node ./server.js)
+3) si
+
+
 $Datos = $_POST["vaina"];
 $foto = $_FILES["iamgen"];
 
