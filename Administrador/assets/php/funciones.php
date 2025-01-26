@@ -43,7 +43,7 @@ function existeValor(array $array, string $campo, mixed $valor): bool
 
 function checkSizeFormat(array $campos, array $arrayDatos) {
     $maxSize = 3 * 1024 * 1024;
-    $permitir = ["jpg", "png", "gif"];
+    $permitir = ["jpg", "png", "gif", "jpeg"];
     $errores = [];
 
     foreach ($campos as $campo) {

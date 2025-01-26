@@ -20,24 +20,22 @@ if (isset($_REQUEST["evento"])) {
     switch ($_REQUEST["evento"]) {
         case "todos":
             $digimons = $controlador->listar();
-            // $digimons = $controlador->buscar(comprobarSiEsBorrable: true);
+            $digimons = $controlador->buscar(comprobarSiEsBorrable: true);
             $mostrarDatos = true;
             break;
         case "filtrar":
             $campo=($_REQUEST["campo"])??"name";
             $metodo=($_REQUEST["tipo"])??"contains";
             $texto=($_REQUEST["busqueda"])??"";
-            // $info = ($_REQUEST["busqueda"]) ?? "";
-            // // MIRAR
-            // $digimons = $controlador->buscar($info, $_REQUEST['campo'] ?? "", $_REQUEST['tipo'] ?? "");
-            $digimons = $controlador->buscar($campo, $metodo, $texto,comprobarSiEsBorrable: true);//solo añadimos esto
+            $digimons = $controlador->buscar($campo, $metodo, $texto,comprobarSiEsBorrable: true);
             break;
         case "borrar":
-            $visibilidad = "visibility";
+            $digimons = $controlador->listar();
+            $digimons = $controlador->buscar(comprobarSiEsBorrable: true);
+            $visibilidad = "visible";
             $mostrarDatos = true;
             $clase = "alert alert-success";
-            //Mejorar y poner el nombre/usuario
-            $mensaje = "El digimon con id: {$_REQUEST['id']} fue borrado correctamente";
+            $mensaje = "El digimon '{$_REQUEST['name']}' (ID: {$_REQUEST['id']}) fue borrado correctamente.";
             if (isset($_REQUEST["error"])) {
                 $clase = "alert alert-danger ";
                 $mensaje = "ERROR!!! No se ha podido borrar el digimon con id: {$_REQUEST['id']}";
@@ -45,14 +43,18 @@ if (isset($_REQUEST["evento"])) {
             break;
     }
 } ?>
+<style>
+    tr td, th{
+        text-align: center;
+        align-content: center;
+    }
+</style>
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h3">Buscar digimon</h1>
     </div>
     <div id="contenido">
-        <div class="<?= $clase ?>" <?= $visibilidad ?> role="alert">
-            <?= $mensaje ?>
-        </div>
+        <div class="<?= $clase ?>" <?= $visibilidad ?> role="alert"><?= $mensaje ?></div>
         <div>
         <form action="index.php?tabla=digimons&accion=buscar&evento=filtrar" method="POST">
             <div class="form-group">
@@ -76,7 +78,6 @@ if (isset($_REQUEST["evento"])) {
             </div>
             <button type="submit" class="btn btn-success" name="Filtrar"><i class="fas fa-search"></i> Buscar</button>
         </form>
-        <!-- Este formulario es para ver todos los datos    -->
         <form action="index.php?tabla=digimons&accion=buscar&evento=todos" method="POST">
             <button type="submit" class="btn btn-info" name="Todos"><i class="fas fa-list"></i> Listar</button>
         </form>
@@ -88,14 +89,15 @@ if (isset($_REQUEST["evento"])) {
                 <thead class="table-dark">
                     <tr>
                         <th scope="col">ID</th>
+                        <th scope="col"></th>
                         <th scope="col">Nombre</th>
+                        <th scope="col">Vida</th>
                         <th scope="col">Ataque</th>
                         <th scope="col">Defensa</th>
+                        <th scope="col">Velocidad</th>
                         <th scope="col">Tipo</th>
                         <th scope="col">Nivel</th>
-                        <!-- <th scope="col">Siguiente</th>
-                        <th scope="col">Nº Teléfono Compañía</th> -->
-                        <!-- <th scope="col">Imagen</th> -->
+                        <th scope="col"></th>
                         <th scope="col"></th>
                         <th scope="col"></th>
                     </tr>
@@ -106,21 +108,26 @@ if (isset($_REQUEST["evento"])) {
                     ?>
                         <tr>
                             <th scope="row"><?= $digimon->id ?></th>
-                            <td><?= $digimon->name ?><br><img src="assets/img/digimons/<?= $digimon->name?>/base.png" width="75"></td>
+                            <td class="image"><img src="assets/img/digimons/<?= $digimon->name?>/base.png" width="75"></td>
+                            <td><?= $digimon->name ?></td>
+                            <td><?= $digimon->health ?></td>
                             <td><?= $digimon->attack ?></td>
                             <td><?= $digimon->defense?></td>
+                            <td><?= $digimon->speed ?></td>
                             <td><?= $digimon->type?></td>
                             <td><?= $digimon->level?></td>
                             <!-- <td><img src="assets/img/digimons/<?= $digimon->name?>/base.jpg" width="75"></td> -->
+                            
+                            <td><a class="btn btn-success" href="index.php?tabla=digimons&accion=editar&id=<?= $id ?>"><i class="fas fa-pencil-alt"></i> Editar</td>
+                            <td><a class="btn btn-warning" href="index.php?tabla=digimons&accion=ver&id=<?= $id ?>"><i class="fas fa-eye"></i> Ver</td>
                             <td>
                                 <?php
                                 $disable=""; $ruta="index.php?tabla=digimons&accion=borrar&id={$id}";
                                 if (isset($digimon->esBorrable) && $digimon->esBorrable==false) {
                                     $disable = "disabled"; $ruta="#";
                                 }
-                                ?>
-                                <a class="btn btn-danger <?= $disable?>" href="<?= $ruta?>"><i class="fa fa-trash"></i> Borrar</a></td>
-                            <td><a class="btn btn-success" href="index.php?tabla=digimons&accion=editar&id=<?= $id ?>"><i class="fas fa-pencil-alt"></i> Editar</a></td>
+                                ?>    
+                            <a class="btn btn-danger <?= $disable?>" href="<?= $ruta?>"><i class="fa fa-trash"></i> Borrar</a></td>
                             </tr>
                     <?php
                     endforeach;

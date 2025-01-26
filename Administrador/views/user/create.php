@@ -37,7 +37,7 @@ if (isset($_REQUEST["error"])) {
       </div>
       <div class="form-group">
         <label for="digievolutions">Digievoluciones</label>
-        <input type="number" required class="form-control" id="digievolutions" name="digievolutions" value="<?= $_SESSION["datos"]["digievolutions"] ?? "" ?>">
+        <input type="number" required class="form-control" id="digievolutions" name="digievolutions" value="<?= $_SESSION["datos"]["digievolutions"] ?? "1" ?>">
         <?= isset($errores["digievolutions"]) ? '<div class="alert alert-danger" role="alert">' . DibujarErrores($errores, "digievolutions") . '</div>' : ""; ?>
       </div>
       <div class="form-group">

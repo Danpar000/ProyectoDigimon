@@ -23,39 +23,37 @@ function router (){
 
     $tablas=[
         "user"=>[//defino las acciones permitidas para esa tabla
-                "crear"=>"create.php",
                 "guardar"=>"store.php",
                 "ver"=> "show.php",
-                "listar"=>"list.php",
-		        "buscar"=>"search.php",
-                "borrar"=>"delete.php",
                 "editar"=>"edit.php"
         ],
         "digimons"=>[
-                "crear"=>"create.php",
-                "guardar"=>"store.php",
                 "ver"=> "show.php",
                 "listar"=>"list.php",
 		        "buscar"=>"search.php",
-                "borrar"=>"delete.php",
-                "editar"=>"edit.php"
         ],
         "digimons_users"=>[
-            "crear"=>"create.php",
-            "guardar"=>"store.php",
-            "ver"=> "show.php",
-            "buscar"=>"search.php",
-            "borrar"=>"delete.php",
-            "editar"=>"edit.php"
+              "evento"=>"event.php",
+//            "guardar"=>"store.php",
+              "ver"=>"show.php",
+              "listar"=>"list.php",
+//            "buscar"=>"search.php",
+//            "borrar"=>"delete.php",
+              "digievolucionar"=>"evolutions.php",
+//            "editar"=>"edit.php"
         ],
         "team_users"=>[
-            "crear"=>"create.php",
+            //"crear"=>"create.php",
             "guardar"=>"store.php",
             "ver"=> "show.php",
-            "buscar"=>"search.php",
-            "borrar"=>"delete.php",
+            //"buscar"=>"search.php",
+            //"borrar"=>"delete.php",
             "editar"=>"edit.php"
         ],
+        "rooms"=>[
+            "buscar"=>"search.php",
+            "join"=>"room.php"
+        ]
     ];
     $tabla= $_REQUEST["tabla"];
     if (!isset($tablas[$tabla])) return"views/404.php"; 

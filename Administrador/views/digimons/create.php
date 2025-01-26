@@ -33,6 +33,14 @@ if (isset($_REQUEST["error"])) {
       </div>
 
       <div class="form-group">
+        <label for="health">Vida </label>
+        <input type="number" required class="form-control" id="health" name="health"
+          value="<?= $_SESSION["datos"]["health"] ?? "" ?>" aria-describedby="health" placeholder="Puntos de vida del digimon">
+        <?= isset($errores["health"]) ? '<div class="alert alert-danger" role="alert">' . DibujarErrores($errores, "health") . '</div>' : ""; ?>
+      </div>
+
+
+      <div class="form-group">
         <label for="attack">Ataque </label>
         <input type="number" required class="form-control" id="attack" name="attack"
           value="<?= $_SESSION["datos"]["attack"] ?? "" ?>" aria-describedby="attack" placeholder="Ataque del digimon">
@@ -45,6 +53,13 @@ if (isset($_REQUEST["error"])) {
         <input type="number" required class="form-control" id="defense" name="defense"
           value="<?= $_SESSION["datos"]["defense"] ?? "" ?>" placeholder="Defensa del digimon">
         <?= isset($errores["defense"]) ? '<div class="alert alert-danger" role="alert">' . DibujarErrores($errores, "defense") . '</div>' : ""; ?>
+      </div>
+
+      <div class="form-group">
+        <label for="speed">Velocidad </label>
+        <input type="number" required class="form-control" id="speed" name="speed"
+          value="<?= $_SESSION["datos"]["speed"] ?? "" ?>" aria-describedby="speed" placeholder="Velocidad del digimon">
+        <?= isset($errores["speed"]) ? '<div class="alert alert-danger" role="alert">' . DibujarErrores($errores, "speed") . '</div>' : ""; ?>
       </div>
 
       <div class="form-group">
@@ -82,22 +97,22 @@ if (isset($_REQUEST["error"])) {
       </div>
 
       <div class="form-group">
-        <label for="image">Imagen Principal</label>
-        <input type="file" required class="form-control" id="image" name="image" accept="image/png, image/jpeg, image/jpg, image/gif"
+        <label for="image">Imagen Principal (Opcional)</label>
+        <input type="file" class="form-control" id="image" name="image" accept="image/png, image/jpeg, image/jpg, image/gif"
           value="<?= $_SESSION["datos"]["image"]["tmp_name"] ?? "" ?>">
         <?= isset($errores["image"]) ? '<div class="alert alert-danger" role="alert">' . DibujarErrores($errores, "image") . '</div>' : ""; ?>
       </div>
 
       <div class="form-group">
-        <label for="imageVictory">Imagen Victoria</label>
-        <input type="file" required class="form-control" id="imageVictory" name="imageVictory" accept="image/png, image/jpeg, image/jpg, image/gif"
+        <label for="imageVictory">Imagen Victoria (Opcional)</label>
+        <input type="file" class="form-control" id="imageVictory" name="imageVictory" accept="image/png, image/jpeg, image/jpg, image/gif"
           value="<?= $_SESSION["datos"]["imageVictory"]["tmp_name"] ?? "" ?>">
         <?= isset($errores["imageVictory"]) ? '<div class="alert alert-danger" role="alert">' . DibujarErrores($errores, "imageVictory") . '</div>' : ""; ?>
       </div>
 
       <div class="form-group">
-        <label for="imageDefeat">Imagen Derrota</label>
-        <input type="file" required class="form-control" id="imageDefeat" name="imageDefeat" accept="image/png, image/jpeg, image/jpg, image/gif"
+        <label for="imageDefeat">Imagen Derrota (Opcional)</label>
+        <input type="file" class="form-control" id="imageDefeat" name="imageDefeat" accept="image/png, image/jpeg, image/jpg, image/gif"
           value="<?= $_SESSION["datos"]["imageDefeat"]["tmp_name"] ?? "" ?>">
         <?= isset($errores["imageDefeat"]) ? '<div class="alert alert-danger" role="alert">' . DibujarErrores($errores, "imageDefeat") . '</div>' : ""; ?>
       </div>

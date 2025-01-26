@@ -5,10 +5,10 @@ $mensaje = "";
 $clase = "alert alert-success";
 $visibilidad = "hidden";
 $mostrarDatos = false;
-$controlador = new UsersController();
+$controlador = new usersController();
 $info = "";
 if (!isset($_REQUEST['campo'], $_REQUEST['tipo'])) {
-    $campo = 'usuario';
+    $campo = 'username';
     $tipo = 'startswith';
 } else {
     $campo = $_REQUEST['campo'];
@@ -20,11 +20,11 @@ if (isset($_REQUEST["evento"])) {
     switch ($_REQUEST["evento"]) {
         case "todos":
             $users = $controlador->listar();
-            $users = $controlador->buscar(comprobarSiEsBorrable: true);
+            // $users = $controlador->buscar(comprobarSiEsBorrable: true);
             $mostrarDatos = true;
             break;
         case "filtrar":
-            $campo=($_REQUEST["campo"])??"usuario";
+            $campo=($_REQUEST["campo"])??"username";
             $metodo=($_REQUEST["tipo"])??"contiene";
             $texto=($_REQUEST["busqueda"])??"";
             //es borrable Parametro con nombre
@@ -43,6 +43,12 @@ if (isset($_REQUEST["evento"])) {
             break;
     }
 } ?>
+<style>
+    tr td, th{
+        text-align: center;
+        align-content: center;
+    }
+</style>
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h3">Buscar Usuario</h1>
@@ -56,10 +62,7 @@ if (isset($_REQUEST["evento"])) {
             <div class="form-group">
                 <label for="campo">Buscar por</label>
                 <select class="form-select" name="campo" id="campo">
-                    <option value="usuario" <?= $campo == "usuario" ? "selected" : ""?>>Usuario</option>
-                    <option value="id" <?= $campo == "id" ? "selected" : ""?>>ID</option>
-                    <option value="name" <?= $campo == "name" ? "selected" : ""?>>Nombre</option>
-                    <option value="email" <?= $campo == "email" ? "selected" : ""?>>Email</option>
+                    <option value="username" <?= $campo == "username" ? "selected" : ""?>>Nombre de usuario</option>
                 </select>
                 <label for="campo">Tipo de búsqueda</label>
                 <select class="form-select" name="tipo" id="tipo">
@@ -86,9 +89,10 @@ if (isset($_REQUEST["evento"])) {
                 <thead class="table-dark">
                     <tr>
                         <th scope="col">ID</th>
+                        <th scope="col">Icono</th>
                         <th scope="col">Usuario</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Email</th>
+                        <th scope="col">Digievoluciones</th>
+                        <th scope="col"></th>
                         <th scope="col"></th>
                         <th scope="col"></th>
                     </tr>
@@ -99,18 +103,22 @@ if (isset($_REQUEST["evento"])) {
                     ?>
                         <tr>
                             <th scope="row"><?=$user->id?></th>
-                            <td><?=$user->usuario?></td>
-                            <td><?=$user->name?></td>
-                            <td><?=$user->email?></td>
+                            <td class="image"><img src="assets/img/users/<?= $user->username?>/profile.png" width="75"></td>
+                            <td><?=$user->username?></td>
+                            <td><?=$user->digievolutions?></td>
+                            
+                            <td><a class="btn btn-success" href="index.php?tabla=user&accion=editar&id=<?=$id?>"><i class="fas fa-pencil-alt"></i> Editar</a></td>
+                            <td><a class="btn btn-warning" href="index.php?tabla=user&accion=ver&id=<?= $id ?>"><i class="fas fa-eye"> Ver</i></td>
                             <td>
                                 <?php
-                                $disable="";$ruta="index.php?tabla=user&accion=borrar&id={$id}&nombre=<?= $user->name?>&usuario=<?= $user->usuario?>";
+                                $disable="";$ruta="index.php?tabla=user&accion=borrar&id={$id}&usuario=<?= $user->username?>";
                                 if (isset($user->esBorrable) && $user->esBorrable==false){
                                 $disable="disabled"; $ruta="#";
                                 }
                                 ?>
-                                <a class="btn btn-danger <?= $disable?>" href="<?=$ruta?>"><i class="fa fa-trash"></i> Borrar</a></td>
-                            <td><a class="btn btn-success" href="index.php?tabla=user&accion=editar&id=<?=$id?>"><i class="fa fa-pencil"></i>Editar</a></td>
+                                <a class="btn btn-danger <?= $disable?>" href="<?=$ruta?>"><i class="fa fa-trash"></i> Borrar</a>
+                            </td>
+                                
                         </tr>
                     <?php
                     endforeach;

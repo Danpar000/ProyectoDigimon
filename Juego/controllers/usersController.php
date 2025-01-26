@@ -90,6 +90,10 @@ class UsersController {
         return $users;
     }
 
+    public function restarDigievolucion($user_id, $digiEvolutions) {
+        $this->model->updateDigievolutions($user_id, $digiEvolutions);
+    }
+
     // private function esBorrable(stdClass $user): bool
     // {
     //     $projectController = new ProjectsController();

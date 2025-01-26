@@ -26,7 +26,7 @@ function router (){
                 "crear"=>"create.php",
                 "guardar"=>"store.php",
                 "ver"=> "show.php",
-                "listar"=>"list.php",
+                // "listar"=>"list.php",
 		        "buscar"=>"search.php",
                 "borrar"=>"delete.php",
                 "editar"=>"edit.php"
@@ -35,7 +35,7 @@ function router (){
                 "crear"=>"create.php",
                 "guardar"=>"store.php",
                 "ver"=> "show.php",
-                "listar"=>"list.php",
+                // "listar"=>"list.php",
 		        "buscar"=>"search.php",
                 "borrar"=>"delete.php",
                 "editar"=>"edit.php"

@@ -2,7 +2,7 @@
 require_once "models/userModel.php";
 require_once "controllers/projectsController.php";
 
-class DigimonsUsersController { 
+class TeamUsersController { 
     private $model;
 
     public function __construct(){

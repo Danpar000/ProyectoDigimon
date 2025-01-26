@@ -23,7 +23,6 @@ $user = $controlador->ver($id);
                     Usuario: <?= $user->username ?> <br>
                     Victorias: <?= $user->wins ?> <br>
                     Derrotas: <?= $user->loses ?> <br>
-                    Digievoluciones: <?= $user->digievolutions ?> <br>
                 </p>
                 <img src="../Administrador/assets/img/users/<?= $user->username?>/profile.png" width="150"><br>
                 <a href="index.php" class="btn btn-primary">Volver a Inicio</a>

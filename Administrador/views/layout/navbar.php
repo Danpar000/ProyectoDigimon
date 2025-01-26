@@ -12,7 +12,7 @@
             <i class="far fa-user"></i> Usuarios</a>
             <ul class="dropdown-menu dropdown-menu-dark">
               <li><a class="dropdown-item" href="index.php?tabla=user&accion=crear">Añadir</a></li>
-              <li><a class="dropdown-item" href="index.php?tabla=user&accion=listar">Listar </a></li>
+              <!-- <li><a class="dropdown-item" href="index.php?tabla=user&accion=listar">Listar </a></li> -->
               <li><a class="dropdown-item" href="index.php?tabla=user&accion=buscar">Buscar </a></li>
           </ul>
           </li>

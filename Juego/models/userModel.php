@@ -72,6 +72,16 @@ class UserModel
         }
     }
 
+    public function updateDigievolutions($user_id, $digiEvolutions) {
+        $sql = "UPDATE users SET digievolutions = :digievolutions WHERE id = :id;";
+        $arrayDatos = [
+            ":digievolutions" => $digiEvolutions-1,
+            ":id" => $user_id
+        ];
+        $sentencia = $this->conexion->prepare($sql);
+        $sentencia->execute($arrayDatos);
+    }
+
     public function edit (int $idAntiguo, array $arrayUsuario):bool{
         try {
             // No hago el cambio si es la misma

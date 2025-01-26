@@ -19,9 +19,9 @@ $arrayDigimon=[
                 "type"=>($_REQUEST["type"])??"",
                 "level"=>$_REQUEST["level"],
                 "next_evolution_id" => ($_REQUEST["next_evolution_id"] !== "" && $_REQUEST["next_evolution_id"] !== "null") ? $_REQUEST["next_evolution_id"] : null,
-                "image"=>$_FILES["image"],
-                "imageVictory"=>$_FILES["imageVictory"],
-                "imageDefeat"=>$_FILES["imageDefeat"]
+                "image" => isset($_FILES["image"]) && $_FILES["image"]["error"] === 0 ? $_FILES["image"] : null,
+                "imageVictory" => isset($_FILES["imageVictory"]) && $_FILES["imageVictory"]["error"] === 0 ? $_FILES["imageVictory"] : null,
+                "imageDefeat" => isset($_FILES["imageDefeat"]) && $_FILES["imageDefeat"]["error"] === 0 ? $_FILES["imageDefeat"] : null
                 ];
 
 //pagina invisible

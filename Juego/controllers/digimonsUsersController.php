@@ -1,12 +1,79 @@
 <?php
-require_once "models/userModel.php";
-require_once "controllers/projectsController.php";
+require_once "models/digimonUsersModel.php";
+require_once "controllers/usersController.php";
 
 class DigimonsUsersController { 
     private $model;
 
     public function __construct(){
         $this->model = new DigimonUsersModel();
+    }
+
+
+    public function checkDigimonIDs(array $list, stdClass $preEvolution, stdClass $nextEvolution) {
+        $owned = false;
+        
+        // Obtengo todos los digimones y compruebo si los tienes
+        foreach ($list as $digimon) {
+            if ($digimon->digimon_id == $nextEvolution->id) {
+                // Ya tienes el Digimon.
+                return false;
+            } else {
+                // Compruebo si tienes el digimon a mejorar.
+                if ($digimon->digimon_id == $preEvolution->id) {
+                    $owned = true;
+                }
+            }
+        }
+
+        // Si no tienes el digimon a mejorar
+        if ($owned == false) {
+            return false;
+        }
+        // Si no corresponde el NEID enviado con el actual
+        if ($preEvolution->next_evolution_id != $nextEvolution->id) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public function generarDigimon($user_id){
+        require_once "controllers/digimonsController.php";
+        $digimonController = new DigimonsController();
+
+        $list = $digimonController->buscar("level", "equals", 1);
+
+        $digimonYaObtenidos = [];
+        while (count($digimonYaObtenidos) < 3) {
+            $random = rand(0, count($list) - 1);
+            if (!in_array($random, $digimonYaObtenidos)) {
+                $digimonYaObtenidos[] = $random;
+                $this->model->insert(["user_id" => $user_id, "digimon_id" => $list[$random]->id]);
+            }
+        }
+    }
+
+
+    public function evolveDigimon (int $user_id, stdClass $preEvolution, stdClass $nextEvolution, int $digiEvolutions) {
+        $list = $this->model->search($user_id, "user_id", "equals");
+        $this->checkDigimonIDs($list, $preEvolution, $nextEvolution);
+        if (!$this->checkDigimonIDs($list, $preEvolution, $nextEvolution) || $digiEvolutions <= 0) {
+            header("location: index.php");
+            exit();
+        } else {
+            $this->addDigimon($user_id, $nextEvolution->id);
+            $this->borrarDigi($user_id, $preEvolution->id);
+            $userController = new UsersController();
+            $userController->restarDigievolucion($user_id, $digiEvolutions);
+            $_SESSION["username"]->digievolutions = $_SESSION["username"]->digievolutions-1;
+            header("location: index.php?tabla=digimons_users&accion=listar");
+            exit();
+        }
+    }
+
+    public function addDigimon (int $user_id,int $digimon_id):void {
+        $this->model->insert(["user_id" => $user_id, "digimon_id" => $digimon_id]);
     }
 
     public function crear (array $arrayTeam):void {
@@ -47,8 +114,8 @@ class DigimonsUsersController {
         exit();
     }
 
-    public function ver(int $id): ?stdClass {
-        return $this->model->read($id);
+    public function ver(int $user_id): ?stdClass {
+        return $this->model->read($user_id);
     }
 
     public function listar () {
@@ -63,6 +130,10 @@ class DigimonsUsersController {
         if ($borrado == false) $redireccion .=  "&error=true";
         header($redireccion);
         exit();
+    }
+
+    public function borrarDigi(int $user_id, int $digimon_id): void {
+        $this->model->deleteDigi($user_id, $digimon_id);
     }
 
     public function editar(string $id, array $arrayTeam): void {
@@ -108,14 +179,8 @@ class DigimonsUsersController {
 
      public function buscar(string $campo = "name", string $metodo = "contains", string $texto = "", bool  $comprobarSiEsBorrable = false): array
     {
-        $users = $this->model->search($texto, $campo, $metodo);
-
-        if ($comprobarSiEsBorrable) {
-            foreach ($users as $user) {
-                $user->esBorrable = $this->esBorrable($user);
-            }
-        }
-        return $users;
+        $list = $this->model->search($texto, $campo, $metodo);
+        return $list;
     }
 
     private function esBorrable(stdClass $user): bool

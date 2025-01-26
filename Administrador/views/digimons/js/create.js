@@ -61,12 +61,9 @@ function validarForm(evento) {
     let attack = document.getElementById("attack");
     let defense = document.getElementById("defense");
     let type = document.getElementById("type");
-    let image = document.getElementById("image");
-    let imageVictory = document.getElementById("imageVictory");
-    let imageDefeat = document.getElementById("imageDefeat");
     let alerta = document.getElementById("alerta");
 
-    let notNulls = [name, attack, defense, type, image, imageVictory, imageDefeat];
+    let notNulls = [name, attack, defense, type];
 
     alerta.innerHTML = "";
     alerta.className = "alert alert-danger invisible";
@@ -84,16 +81,8 @@ function validarForm(evento) {
     notNulls.forEach(element => {
         if (!checkNulls(element)) {
             switch (element.id) {
-                case "image":
-                case "imageVictory":
-                case "imageDefeat":
-                    if (element.files.length === 0) {
-                        error = true;
-                        errores += "\nTienes que subir una imagen en el campo " + element.id + ".";
-                    }
-                    break;
                 case "type":
-                    let tipos = ["Animal", "Elemental", "Vacuna", "Virus"];
+                    let tipos = ["Animal", "Planta", "Elemental", "Vacuna", "Virus"];
                     if (!tipos.includes(element.value)) {
                         error = true;
                         errores += "\nTienes que seleccionar un tipo de Digimon válido.";
@@ -134,10 +123,6 @@ function checkLength(name) {
 
 function checkNulls(element) {
     switch (element.id) {
-        case "image":
-        case "imageVictory":
-        case "imageDefeat":
-            return element.files.length > 0;
         case "type":
             let tipos = ["Animal", "Elemental", "Vacuna", "Virus"];
             return tipos.includes(element.value);

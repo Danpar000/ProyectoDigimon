@@ -17,7 +17,7 @@ class DigimonUsersModel {
                 ":user_id" => $digimonUser["user_id"],
                 ":digimon_id" => $digimonUser["digimon_id"]
         ];
-        $sentencia->execute($arrayDatos);
+        $sentencia->execute(params: $arrayDatos);
         return $this->conexion->lastInsertId();
         }catch (Exception $e){
             echo 'Excepción capturada al insertar: ',  $e->getMessage(), "<br>";
@@ -25,10 +25,10 @@ class DigimonUsersModel {
         }
     }
 
-    public function read(int $id): ?stdClass {
+    public function read(int $user_id): ?stdClass {
         try{
-            $sentencia = $this->conexion->prepare("SELECT * FROM digimons_users WHERE id=:id");
-            $arrayDatos = [":id" => $id];
+            $sentencia = $this->conexion->prepare("SELECT * FROM digimons_users WHERE user_id=:user_id ORDER BY digimon_id");
+            $arrayDatos = [":user_id" => $user_id];
             $sentencia->execute($arrayDatos);
             $user = $sentencia->fetch(PDO::FETCH_OBJ);
             //fetch duevelve el objeto stardar o false si no hay persona
@@ -54,6 +54,20 @@ class DigimonUsersModel {
             //devuelve true si se borra correctamente
             //false si falla el borrado
             $sentencia->execute([":id" => $id]);
+            return ($sentencia->rowCount ()<=0)?false:true;
+        }  catch (Exception $e) {
+            echo 'Excepción capturada: ',  $e->getMessage(), "<br>";
+            return false;
+        }
+    }
+
+    public function deleteDigi (int $user_id, int $digimon_id):bool {
+        $sql="DELETE FROM digimons_users WHERE user_id =:user_id AND digimon_id=:digimon_id";
+        try {
+            $sentencia = $this->conexion->prepare($sql);
+            //devuelve true si se borra correctamente
+            //false si falla el borrado
+            $sentencia->execute([":user_id" => $user_id,":digimon_id" => $digimon_id]);
             return ($sentencia->rowCount ()<=0)?false:true;
         }  catch (Exception $e) {
             echo 'Excepción capturada: ',  $e->getMessage(), "<br>";
@@ -101,7 +115,7 @@ class DigimonUsersModel {
             exit();
         }
 
-        $sentencia = $this->conexion->prepare("SELECT * FROM digimons_users WHERE $campo LIKE :info");
+        $sentencia = $this->conexion->prepare("SELECT * FROM digimons_users WHERE $campo LIKE :info ORDER BY digimon_id");
         
         // Que es esto?
         //ojo el si ponemos % siempre en comillas dobles "

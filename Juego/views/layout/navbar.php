@@ -1,4 +1,4 @@
-<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+<!-- <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
       <div class="position-sticky pt-3">
         <ul class="nav flex-column">
           <li class="nav-item">
@@ -21,9 +21,9 @@
             <i class="fas fa-user-tie"></i> Salas</a>
             <ul class="dropdown-menu dropdown-menu-dark">
               <li><a class="dropdown-item" href="index.php?tabla=digimons&accion=crear">Crear sala</a></li>
-              <li><a class="dropdown-item" href="index.php?tabla=digimons&accion=buscar">Buscar sala</a></li>
+              <li><a class="dropdown-item" href="index.php?tabla=rooms&accion=buscar">Buscar sala</a></li>
           </ul>
           </li>
         </ul>
       </div>
-    </nav>
+    </nav> -->
