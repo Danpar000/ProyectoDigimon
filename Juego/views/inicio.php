@@ -9,6 +9,11 @@ if ($userHasDigimon == null) {
 }
 
 ?>
+<style>
+  body {
+    background-color: black;
+  }
+</style>
 <!--  main class class="col-md-9 ms-sm-auto col-lg-10 px-md-4"  -->
 <main class="">
   <div class="fondoInicio">
@@ -20,12 +25,12 @@ if ($userHasDigimon == null) {
           <a href="index.php?tabla=digimons_users&accion=listar">
             <button id="misDigimon"><span>Mis Digimon</span></button>
           </a>
-          <a href="">
+          <a href="index.php?tabla=team_users&accion=ver">
             <button id="miEquipo"><span>Mi Equipo</span></button>
           </a>
         </div>
         <div class="fila2">
-          <a href="">
+          <a href="index.php?tabla=offline&accion=buscar">
             <button id="combateOffline"><span>Combate Offline</span></button>
           </a>
           <a href="">

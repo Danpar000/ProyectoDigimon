@@ -2,8 +2,9 @@ import { WebSocketServer } from "ws";
 import Player from "./class/Player.js";
 
 const PORT = 81;
-const wss = new WebSocketServer({ port: PORT });
-console.log(`Server started on ws://localhost:${PORT}\n`);
+const HOST = "192.168.42.253";
+const wss = new WebSocketServer({ host: HOST, port: PORT });
+console.log(`Server started on ws://${HOST}:${PORT}\n`);
 
 
 let players = [];

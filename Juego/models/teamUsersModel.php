@@ -25,17 +25,16 @@ class TeamUsersModel {
         }
     }
 
-    public function read(int $id): ?stdClass {
+    public function read(int $id):array {
         try{
             $sentencia = $this->conexion->prepare("SELECT * FROM team_users WHERE user_id=:user_id");
             $arrayDatos = [":user_id" => $id];
             $sentencia->execute($arrayDatos);
-            $team = $sentencia->fetch(PDO::FETCH_OBJ);
-            //fetch duevelve el objeto stardar o false si no hay persona
+            $team = $sentencia->fetchAll(PDO::FETCH_OBJ);
             return ($team == false) ? null : $team;
         } catch (Exception $e){
             echo 'Excepción capturada al insertar: ',  $e->getMessage(), "<br>";
-            return null;
+            return [];
         }
     }
 
@@ -47,19 +46,19 @@ class TeamUsersModel {
         return $teamUsers;
     }
 
-    public function delete (int $id):bool {
-        $sql="DELETE FROM team_users WHERE digimon_id =:digimon_id";
-        try {
-            $sentencia = $this->conexion->prepare($sql);
-            //devuelve true si se borra correctamente
-            //false si falla el borrado
-            $sentencia->execute([":digimon_id" => $id]);
-            return ($sentencia->rowCount ()<=0)?false:true;
-        }  catch (Exception $e) {
-            echo 'Excepción capturada: ',  $e->getMessage(), "<br>";
-            return false;
-        }
-    }
+    // public function delete (int $id):bool {
+    //     $sql="DELETE FROM team_users WHERE digimon_id =:digimon_id";
+    //     try {
+    //         $sentencia = $this->conexion->prepare($sql);
+    //         //devuelve true si se borra correctamente
+    //         //false si falla el borrado
+    //         $sentencia->execute([":digimon_id" => $id]);
+    //         return ($sentencia->rowCount ()<=0)?false:true;
+    //     }  catch (Exception $e) {
+    //         echo 'Excepción capturada: ',  $e->getMessage(), "<br>";
+    //         return false;
+    //     }
+    // }
 
     public function edit (int $idAntiguo, array $arrayDigimonUser):bool{
         try {

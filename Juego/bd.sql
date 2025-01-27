@@ -202,6 +202,11 @@ VALUES
 (1, 54), (3, 54), (5, 54), (8, 54),
 (2, 55), (4, 55), (6, 55), (10, 55);
 
+select * from users;
+update users set digievolutions = 10 where id = 1;
+
+select * from team_users;
+
 
 
 

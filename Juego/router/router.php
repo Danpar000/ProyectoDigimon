@@ -34,13 +34,9 @@ function router (){
         ],
         "digimons_users"=>[
               "evento"=>"event.php",
-//            "guardar"=>"store.php",
               "ver"=>"show.php",
               "listar"=>"list.php",
-//            "buscar"=>"search.php",
-//            "borrar"=>"delete.php",
               "digievolucionar"=>"evolutions.php",
-//            "editar"=>"edit.php"
         ],
         "team_users"=>[
             //"crear"=>"create.php",
@@ -49,6 +45,9 @@ function router (){
             //"buscar"=>"search.php",
             //"borrar"=>"delete.php",
             "editar"=>"edit.php"
+        ],
+        "offline"=>[
+            "buscar"=>"search.php"
         ],
         "rooms"=>[
             "buscar"=>"search.php",

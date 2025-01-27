@@ -47,6 +47,31 @@ if ($_SESSION["username"]->digievolutions <= 0) {
 
 ?>
 <style>
+    body {
+        background-color: black;
+        background-image: url("../Administrador/assets/img/digimons/<?=$digimon->name?>/base.png");
+        background-position: center right;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        position: relative;
+    }
+
+    body::before {
+        content: ''; /* Pseudo-elemento necesario */
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            radial-gradient(circle, rgba(0, 0, 0, 1) 55%, rgba(0, 0, 0, 0) 60%),
+            linear-gradient(270deg, rgba(0, 0, 0, 1) 0.5%, rgba(0, 0, 0, 0) 15%),
+            linear-gradient(0deg, rgba(0, 0, 0, 1) 5%, rgba(0, 0, 0, 0) 15%),
+            linear-gradient(180deg, rgba(0, 0, 0, 1) 15%, rgba(0, 0, 0, 0) 35%);
+        z-index: 1;
+    }
+
     #contenido{
         display: flex;
         justify-content: space-around;
@@ -61,7 +86,7 @@ if ($_SESSION["username"]->digievolutions <= 0) {
         margin: 2px 0px;
     }
 </style>
-<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+<main class="">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h3">Ver Digimon</h1>
     </div>

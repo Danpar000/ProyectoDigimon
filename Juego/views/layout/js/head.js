@@ -1,4 +1,7 @@
-let ws = new WebSocket("ws://localhost:81");
+const IP = "192.168.42.253";
+const PORT = 81;
+const URL = `ws://${IP}:${PORT}`;
+let ws = new WebSocket(URL);
 
 // Al abrir
 ws.onopen = async () => {
