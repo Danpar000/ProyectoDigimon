@@ -90,7 +90,7 @@ class UsersController {
         return $users;
     }
 
-    public function restarDigievolucion($user_id, $digiEvolutions) {
+    public function editarDigievolucion($user_id, $digiEvolutions) {
         $this->model->updateDigievolutions($user_id, $digiEvolutions);
     }
 

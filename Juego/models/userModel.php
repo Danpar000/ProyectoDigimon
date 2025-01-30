@@ -75,7 +75,7 @@ class UserModel
     public function updateDigievolutions($user_id, $digiEvolutions) {
         $sql = "UPDATE users SET digievolutions = :digievolutions WHERE id = :id;";
         $arrayDatos = [
-            ":digievolutions" => $digiEvolutions-1,
+            ":digievolutions" => $digiEvolutions,
             ":id" => $user_id
         ];
         $sentencia = $this->conexion->prepare($sql);

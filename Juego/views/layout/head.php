@@ -11,17 +11,8 @@
   <!-- Custom styles for this template -->
   <link href="assets/css/dashboard.css" rel="stylesheet">
   <link href="assets/css/404.css" rel="stylesheet">
-
-
-
   <!-- ACA METEMOS NUESTROS CSS -->
   <link href="assets/css/alt/custom.css" rel="stylesheet">
-
-
-
-
-
-
   <script defer src="views/layout/js/head.js"></script>
 </head>
 <body>

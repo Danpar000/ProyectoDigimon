@@ -1,5 +1,6 @@
 const IP = "192.168.42.253";
-const PORT = 81;
+//const IP = "172.30.7.251";
+const PORT = 82;
 const URL = `ws://${IP}:${PORT}`;
 let ws = new WebSocket(URL);
 
@@ -41,35 +42,27 @@ async function getSessionUsername() {
     }
 }
 
-document.querySelectorAll(".card").forEach(card => {
+document.querySelectorAll(".card__container").forEach(card => {
     card.addEventListener("mousemove", (event) => {
         const { clientX, clientY } = event;
         const rect = card.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
-        const offsetX = (clientX - centerX) / 10;
-        const offsetY = (clientY - centerY) / 10;
-        card.style.transform = `rotateY(${offsetX}deg) rotateX(${offsetY}deg)`;
+
+        // Aumentar la sensibilidad del movimiento para que sea más notorio
+        const offsetX = (clientX - centerX) / 5; // Sensibilidad
+        const offsetY = (clientY - centerY) / 5;
+
+        // Aplicar la transformación 3D y la sombra dinámica en tiempo real
+        card.style.transform = `rotateY(${offsetX}deg) rotateX(${offsetY}deg) scale(1.1)`; // Rotación en 3D
+        card.style.boxShadow = `${offsetX * 2}px ${offsetY * 2}px 20px rgba(0, 0, 0, 0.3)`; // Sombra dinámica en movimiento
     });
 
     card.addEventListener("mouseleave", () => {
-        card.style.transform = "rotateY(0deg) rotateX(0deg)";
+        // Volver al estado inicial
+        card.style.transform = "rotateY(0deg) rotateX(0deg) scale(1)";
+        card.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.3)";  // Sombra normal cuando el ratón se aleja
     });
-
-    const button = card.querySelector("#mirar");
-    if (button) {
-        button.addEventListener("click", function () {
-            // Buscar el div siguiente con id que tenga "hidden"
-            const bottomCard = card.querySelector(".bottom-card");
-
-            // Verificar si tiene el atributo "hidden"
-            if (bottomCard.hasAttribute("hidden")) {
-                bottomCard.removeAttribute("hidden");  // Quitar el hidden
-            } else {
-                bottomCard.setAttribute("hidden", "true");  // Poner el hidden
-            }
-        });
-    }
 });
 
 document.addEventListener("DOMContentLoaded", function () {

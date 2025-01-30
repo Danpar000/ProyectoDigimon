@@ -197,7 +197,7 @@ if (!$digiUserController->checkDigimonIDs($list, $digimon, $digievolucionado)) {
                     <div class="top-card">
                         <div class="top-left-card">
                             <img src="https://www.svgrepo.com/show/335228/heart-solid.svg" width="20px">
-                            <h1 class="card-level-corner"> Lv.1 <h1>
+                            <h1 class="card-level-corner"> Lv. <?= $digimon->level?><h1>
                         </div>
                         <div class="top-right-card">
                             <h5 class="card-id-corner">#<?=$digimon->id?><h5>
@@ -237,7 +237,7 @@ if (!$digiUserController->checkDigimonIDs($list, $digimon, $digievolucionado)) {
                     <div class="top-card">
                         <div top-left-card>
                         <h1 class="card-level-corner">
-                            <img src="https://www.svgrepo.com/show/335228/heart-solid.svg" width="20px"> Lv.1 <h1>
+                            <img src="https://www.svgrepo.com/show/335228/heart-solid.svg" width="20px"> Lv. <?= $digievolucionado->level?><h1>
                         </div>
                         <div top-right-card>
                         <h5 class="card-id-corner">#<?=$digievolucionado->id?><h5>
@@ -276,8 +276,8 @@ if (!$digiUserController->checkDigimonIDs($list, $digimon, $digievolucionado)) {
             </div>
             <div id="confirm-prompt">
                 <h4>Estás a punto de evolucionar a tu <?=$digimon->name?> en un <?=$digievolucionado->name?>, esto consumirá una de tus Digievoluciones</h4>
-                <h5 id="alert">*Esta acción no se puede deshacer*</h5>
-                <a href="index.php"><button class="btn btn-danger">Volver</button></a>
+                <h5 id="alert"><b>*Esta acción no se puede deshacer*</b></h5>
+                <a href="index.php?tabla=digimons_users&accion=listar"><button class="btn btn-danger">Volver</button></a>
                 <a href="index.php?tabla=digimons_users&accion=digievolucionar&digimon_id=<?=$digimon->id?>&next_evolution_id=<?=$digievolucionado->id?>&status=ok"><button id="evolve" class="btn btn-success border-green">Evolucionar (<img src="assets/img/evolutions.png" width="15px"> -1)</button></a>
             </div>
         </div>

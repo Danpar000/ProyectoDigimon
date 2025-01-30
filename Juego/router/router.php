@@ -11,6 +11,17 @@ function GenerarRutaJs(string $route):string{
     return $path;
     }
 
+function GenerarRutaCSS(string $route):string{
+    $ultimo=strrpos($route,"/");
+    $ruta=substr($route,0, $ultimo);
+    $partes= (explode("/",$route));
+    $fichero= end($partes);
+    $partes2=explode(".",$fichero);
+    $nombreFichero= $partes2[0].".css";
+    $path=$ruta."/css/".$nombreFichero;
+    return $path;
+    }
+
 function router (){
     $url = $_SERVER["REQUEST_URI"];
 
@@ -47,7 +58,9 @@ function router (){
             "editar"=>"edit.php"
         ],
         "offline"=>[
-            "buscar"=>"search.php"
+            "buscar"=>"search.php",
+            "partida"=>"game.php",
+            "premio"=>"prize.php",
         ],
         "rooms"=>[
             "buscar"=>"search.php",

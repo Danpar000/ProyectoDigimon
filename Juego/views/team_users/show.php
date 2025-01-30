@@ -4,16 +4,44 @@ require_once "controllers/teamUsersController.php";
 $controlador = new DigimonsController();
 $teamUsersController = new TeamUsersController();
 $myTeam = $teamUsersController->ver($_SESSION["username"]->id);
-if ($myTeam == null) {
-    header("location: index.php");
-    exit();
-}
+// if ($myTeam == null) {
+//     header("location: index.php");
+//     exit();
+// }
 ?>
 <style>
-    #contenido{
-        display: flex;
-        justify-content: space-around;
+    body {
+        background-color: red;
     }
+
+    #contenido{
+        display: inline-block;
+        width: 100%;
+        
+        background-color: blue;
+    }
+
+    #inner-contenido{
+        display: flex;
+        justify-content: space-evenly;
+        background-color: green;
+        margin: 3rem;
+    }
+
+    #inner-contenido2{
+        height: 5rem;
+        background-color: pink;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+    }
+
+    #inner-contenido2 div{
+        display: flex;
+        align-items: center;
+    }
+
+
     .card{
         width: 18rem;
         text-align: center;
@@ -24,11 +52,12 @@ if ($myTeam == null) {
         margin: 2px 0px;
     }
 </style>
-<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+<main class="">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h3">Mi Equipo</h1>
     </div>
     <div id="contenido">
+        <div id="inner-contenido">
         <?php
             foreach ($myTeam as $digimons) {
                 $digimon = $controlador->ver($digimons->digimon_id);
@@ -90,5 +119,17 @@ if ($myTeam == null) {
                 <?php
             }
         ?>
+        </div>
+        <div id="inner-contenido2" class="form-group">
+            <div>
+                <label for="changeDigimons"><h5>Editando al Digimon #1</h5></label>
+                <select id="changeDigimons" name="changeDigimons" class="form-select" aria-label="Selecciona el tipo del digimon">
+                    <option>1. Agumon</option>
+                    <option>2. Koromon</option>
+                    <option>3. Angelmon</option>
+                    <option>4. KADFSANFKLASDNFSDNFKLSDANLKNFDJKLGDSFKJBGKSDFBGKDFBGKJKJBJ</option>
+                </select>
+            </div>
+        </div>
     </div>
 </main>

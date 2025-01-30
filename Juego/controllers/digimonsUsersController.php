@@ -70,7 +70,7 @@ class DigimonsUsersController {
             $this->addDigimon($user_id, $nextEvolution->id);
             $this->borrarDigi($user_id, $preEvolution->id);
             $userController = new UsersController();
-            $userController->restarDigievolucion($user_id, $digiEvolutions);
+            $userController->editarDigievolucion($user_id, $digiEvolutions-1);
             $_SESSION["username"]->digievolutions = $_SESSION["username"]->digievolutions-1;
             header("location: index.php?tabla=digimons_users&accion=listar");
             exit();

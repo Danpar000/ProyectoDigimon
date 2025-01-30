@@ -1,3 +1,10 @@
+<?php
+require_once("controllers/usersController.php");
+
+$controllerUser = new UsersController;
+$users=$controllerUser->listar();
+
+?>
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-start flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h3">Salas |</h1>
@@ -14,7 +21,18 @@
 <!--        <div class="--><?php //= $clase ?><!--" --><?php //= $visibilidad ?><!-- role="alert">-->
 <!--            --><?php //= $mensaje ?>
 <!--        </div>-->
-        <table class="table table-light table-hover">
+        <?php
+        foreach ($users as $user) {
+        ?>
+        <select name="rival_user" id="rival_user">
+            <option value="<?=$user->id?>">Oponente: <?=$user->username?></option>
+        </select>
+        <td><a href="index.php?tabla=offline&accion=partida&oponente=<?=$user->id?>"><button>Jugar</button></a></td>
+        <?php
+        }
+        ?>
+          
+        <!-- <table class="table table-light table-hover">
             <thead class="table-dark">
             <tr>
                 <th scope="col">ID Sala</th>
@@ -24,7 +42,7 @@
             </tr>
             </thead>
             <tbody>
-                <!-- ACA LUEGO VA LA PARTE DE GENERAR EL JV CON LAS SALAS -->
+                 ACA LUEGO VA LA PARTE DE GENERAR EL JV CON LAS SALAS 
                  <tr>
                     <td>Aca va el id</td>
                     <td>
@@ -35,6 +53,6 @@
                     <td><a href="index.php?tabla=rooms&accion=join"><button>Unirse</button></a></td>    
                  </tr>
             </tbody>
-        </table>
+        </table> -->
     </div>
 </main>
