@@ -47,7 +47,7 @@
     </div>
     <div class="navbar-nav">
       <div class="nav-item text-nowrap">
-        <a class="nav-link px-3" id=profilePicture href="index.php?test.php"><img src="../Administrador/assets/img/users/<?= $_SESSION["username"]->username?>/profile.png" alt=""></a>
+        <a class="nav-link px-3" id=profilePicture href="index.php?tabla=user&accion=ver&id=<?=$_SESSION['username']->id?>"><img src="../Administrador/assets/img/users/<?= $_SESSION["username"]->username?>/profile.png" alt=""></a>
       </div>
     </div>
   </header>

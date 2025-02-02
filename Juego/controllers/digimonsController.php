@@ -16,6 +16,12 @@ class DigimonsController {
         return $this->model->read($id);
     }
 
+    public function verDigimonJson(int $id) {
+        header('Content-Type: application/json');
+        $digimon = $this->model->read($id);
+        echo json_encode($digimon);
+    }
+
     public function listar () {
         return $this->model->readAll();
     }

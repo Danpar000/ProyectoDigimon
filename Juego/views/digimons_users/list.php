@@ -108,13 +108,19 @@ $userDigimon = $digiUserController->buscar("user_id", "equals", $_SESSION["usern
         transition: box-shadow 0.03s ease-in-out;
         transform-style: preserve-3d;
         min-height: 35vh;
-        max-height: 40vh;
+        max-height: 35vh;
+        overflow: hidden;
     }
 
     .card__image {
         overflow: hidden;
-        min-height: 35vh;
-        max-height: 40vh;
+        min-height: 20vh;
+        max-height: 20vh;
+        min-width: 20vh;
+        max-width: 20vh;
+        object-fit: cover;
+        border: 0.15rem solid;
+        border-radius: 8px;
     }
 
     /* -- NIVELES --*/
@@ -136,13 +142,6 @@ $userDigimon = $digiUserController->buscar("user_id", "equals", $_SESSION["usern
     .card__container--level4 {
         background: rgb(255,243,141);
         background: radial-gradient(circle, rgba(255,243,141,1) 0%, rgba(255,235,59,1) 88%);
-    }
-
-    .card_image {
-        width: 75%;
-        object-fit: cover; /* Asegura que la imagen se ajuste y no se distorsione */
-        border: 0.15rem solid;
-        border-radius: 8px;
     }
 
     /* -- ANIMACIONES -- */
@@ -185,11 +184,11 @@ $userDigimon = $digiUserController->buscar("user_id", "equals", $_SESSION["usern
                     ?>
                     <a href="index.php?tabla=digimons&accion=ver&id=<?=$digimon->id?>">
                         <?php
-                        echo ("<div class='card__container card__container--level{$digimon->level}'>")
+                        echo ("<div class='card__container card__container--animated card__container--level{$digimon->level}'>")
                         ?>
                             <div class="card__topArea">
-                                <h4 class="card_title"><?= $digimon->name?> | #<?=$digimon->id?></h4>
-                                <img class="card_image" src="../Administrador/assets/img/digimons/<?= $digimon->name?>/base.png"><br>
+                                <h4 class="card__title"><?= $digimon->name?> | #<?=$digimon->id?></h4>
+                                <img class="card__image" src="../Administrador/assets/img/digimons/<?= $digimon->name?>/base.png"><br>
                             </div>
                         </div>
                     </a>
@@ -221,48 +220,3 @@ $userDigimon = $digiUserController->buscar("user_id", "equals", $_SESSION["usern
         </div>
     </div>
 </main>
-
-
-<!-- <style>
-    main {
-        background-image: url("assets/img/evolution.png");
-        background-size: cover;
-        width: 100%;
-    }
-</style> -->
-<!-- <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4"> -->
-<!-- <main class="main-container">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3">Digimones</h1>
-    </div>
-    <div id="contenido">
-            <?php
-        foreach($userDigimon as $digimonOwned) {
-            $next_digimon = null;
-            $digimon = $digimonsController->ver($digimonOwned->digimon_id);
-            isset($digimon->next_evolution_id) ? $next_digimon = $digimonsController->ver($digimon->next_evolution_id) : "";
-            ?>
-            <div class="card" style="width: 18rem;">
-                <a href="index.php?tabla=digimons&accion=ver&id=<?= $digimon->id ?>">
-                    <div>
-                        <h5 class="card-title">ID: <?= $digimon->id ?> <br>DIGIMON: <?= $digimon->name ?></h5>
-                        <p class="card-text">
-                            Nivel: <?= $digimon->level?> <br>
-                            Tipo: <?= $digimon->type?><br>
-                            Vida: <?= $digimon->health?> <br>
-                            Ataque: <?= $digimon->attack?> <br>
-                            Defensa: <?= $digimon->defense?><br>
-                            Velocidad: <?= $digimon->speed?> <br>
-                            Siguiente evolución: <?= isset($next_digimon) ? $next_digimon->name : "Ninguna" ?><br>
-                        </p>
-                        <img src="../Administrador/assets/img/digimons/<?= $digimon->name?>/base.png" width="150"><br>
-                    </div>
-                </a>
-            </div>
-            
-            <?php
-        }
-        ?>
-        <a href="index.php" class="btn btn-primary">Volver</a>      
-    </div>
-</main> -->

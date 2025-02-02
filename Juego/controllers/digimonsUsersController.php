@@ -1,6 +1,11 @@
 <?php
-require_once "models/digimonUsersModel.php";
-require_once "controllers/usersController.php";
+if (isset($_REQUEST["funcion"])) {
+    require_once "../models/digimonUsersModel.php";
+    require_once "../controllers/usersController.php";
+} else {
+    require_once "models/digimonUsersModel.php";
+    require_once "controllers/usersController.php";
+}
 
 class DigimonsUsersController { 
     private $model;

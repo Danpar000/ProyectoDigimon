@@ -1,5 +1,5 @@
-const IP = "192.168.42.253";
-//const IP = "172.30.7.251";
+//const IP = "192.168.42.253";
+const IP = "172.30.7.251";
 const PORT = 82;
 const URL = `ws://${IP}:${PORT}`;
 let ws = new WebSocket(URL);
@@ -42,7 +42,7 @@ async function getSessionUsername() {
     }
 }
 
-document.querySelectorAll(".card__container").forEach(card => {
+document.querySelectorAll(".card__container--animated").forEach(card => {
     card.addEventListener("mousemove", (event) => {
         const { clientX, clientY } = event;
         const rect = card.getBoundingClientRect();
@@ -65,6 +65,7 @@ document.querySelectorAll(".card__container").forEach(card => {
     });
 });
 
+
 document.addEventListener("DOMContentLoaded", function () {
     const transitionOverlay = document.getElementById("transitionOverlay");
 
@@ -84,6 +85,21 @@ document.addEventListener("DOMContentLoaded", function () {
                     window.location.href = link.href;
                 }, 500);
             }
+        });
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll("#mirar").forEach(button => {
+        button.addEventListener("click", function () {
+            let card = this.parentElement.parentElement;
+            Array.from(card.children).forEach(child => {
+                if (child.id === "card__topArea") {
+                    child.hidden = !child.hidden;
+                } else if (child.id === "card__backwardsArea") {
+                    child.hidden = !child.hidden;
+                }
+            });
         });
     });
 });

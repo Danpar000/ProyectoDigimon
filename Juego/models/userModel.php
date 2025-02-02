@@ -82,6 +82,23 @@ class UserModel
         $sentencia->execute($arrayDatos);
     }
 
+    public function editStats (int $idAntiguo, array $arrayUsuario):bool{
+        try {
+            $sql = "UPDATE users SET wins = :wins, loses = :loses WHERE id = :id;";
+
+            $arrayDatos=[
+                    ":id"=>$idAntiguo,
+                    ":wins"=>$arrayUsuario["wins"],
+                    ":loses"=>$arrayUsuario["loses"]
+                    ];
+            $sentencia = $this->conexion->prepare($sql);
+            return $sentencia->execute($arrayDatos); 
+        } catch (Exception $e) {
+            echo 'Excepción capturada: ',  $e->getMessage(), "<br>";
+            return false;
+        }
+    }
+
     public function edit (int $idAntiguo, array $arrayUsuario):bool{
         try {
             // No hago el cambio si es la misma

@@ -1,6 +1,11 @@
 <?php
-require_once('config/db.php');
-require_once('assets/php/funciones.php');
+if (isset($_REQUEST["funcion"])) {
+    require_once "../config/db.php";
+    require_once "../assets/php/funciones.php";
+} else {
+    require_once "config/db.php";
+    require_once "assets/php/funciones.php";
+}
 class TeamUsersModel {
     private $conexion;
 
@@ -25,7 +30,7 @@ class TeamUsersModel {
         }
     }
 
-    public function read(int $id):array {
+    public function read(int $id) {
         try{
             $sentencia = $this->conexion->prepare("SELECT * FROM team_users WHERE user_id=:user_id");
             $arrayDatos = [":user_id" => $id];
@@ -46,6 +51,29 @@ class TeamUsersModel {
         return $teamUsers;
     }
 
+    public function readNotInTeam($id, $digimon_id1, $digimon_id2, $digimon_id3): array {
+        $sentencia = $this->conexion->prepare("
+            SELECT d.id, d.name, d.type, d.level
+            FROM digimons AS d
+            WHERE d.id IN (
+                SELECT DISTINCT du.digimon_id
+                FROM digimons_users AS du
+                JOIN team_users AS tu ON tu.user_id = du.user_id
+                WHERE tu.user_id = :user_id
+                AND du.digimon_id NOT IN (:digimon_id1, :digimon_id2, :digimon_id3)
+                );"
+            );
+        $arrayDatos = [
+            ":user_id" => $id,
+            ":digimon_id1" => $digimon_id1,
+            ":digimon_id2" => $digimon_id2,
+            ":digimon_id3" => $digimon_id3
+        ];
+        $sentencia->execute($arrayDatos);
+        $notInTeam = $sentencia->fetchAll(PDO::FETCH_OBJ);
+        return $notInTeam;
+    }
+
     // public function delete (int $id):bool {
     //     $sql="DELETE FROM team_users WHERE digimon_id =:digimon_id";
     //     try {
@@ -60,17 +88,15 @@ class TeamUsersModel {
     //     }
     // }
 
-    public function edit (int $idAntiguo, array $arrayDigimonUser):bool{
+
+    public function edit (int $user_id, int $newDigimon_id, int $oldDigimon_id):bool{
         try {
-            $sql = "UPDATE digimons_users SET user_id = :user_id,
-                    digimon_id = :digimon_id WHERE id = :id";
-
+            $sql = "UPDATE team_users SET digimon_id = :newDigimon_id WHERE user_id = :user_id AND digimon_id = :oldDigimon_id";
             $arrayDatos=[
-                ":id" => $idAntiguo,
-                ":user_id" => $arrayDigimonUser["user_id"],
-                ":digimon_id" => $arrayDigimonUser["digimon_id"]
+                ":user_id" => $user_id,
+                ":newDigimon_id" => $newDigimon_id,
+                ":oldDigimon_id" => $oldDigimon_id
             ];
-
             $sentencia = $this->conexion->prepare($sql);
             return $sentencia->execute($arrayDatos); 
         } catch (Exception $e) {
@@ -78,6 +104,26 @@ class TeamUsersModel {
             return false;
         }
     }
+
+
+    // public function edit (int $idAntiguo, array $arrayDigimonUser):bool{
+    //     try {
+    //         $sql = "UPDATE digimons_users SET user_id = :user_id,
+    //                 digimon_id = :digimon_id WHERE id = :id";
+
+    //         $arrayDatos=[
+    //             ":id" => $idAntiguo,
+    //             ":user_id" => $arrayDigimonUser["user_id"],
+    //             ":digimon_id" => $arrayDigimonUser["digimon_id"]
+    //         ];
+
+    //         $sentencia = $this->conexion->prepare($sql);
+    //         return $sentencia->execute($arrayDatos); 
+    //     } catch (Exception $e) {
+    //         echo 'Excepción capturada: ',  $e->getMessage(), "<br>";
+    //         return false;
+    //     }
+    // }
 
     // public function search (string $info, string $campo, string $tipo):array {
     //     if ($campo == "id" || $campo == "user_id" || $campo == "digimon_id") {

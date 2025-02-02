@@ -1,8 +1,13 @@
 <?php
 require_once("controllers/usersController.php");
+require_once("controllers/digimonsController.php");
+require_once("controllers/teamUsersController.php");
 
-$controllerUser = new UsersController;
+$teamController = new TeamUsersController(); 
+$controllerUser = new UsersController();
+$digimonController=new DigimonsController();
 $users=$controllerUser->listar();
+
 
 ?>
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
@@ -18,20 +23,42 @@ $users=$controllerUser->listar();
         </form>
     </div>
     <div id="contenido">
-<!--        <div class="--><?php //= $clase ?><!--" --><?php //= $visibilidad ?><!-- role="alert">-->
-<!--            --><?php //= $mensaje ?>
-<!--        </div>-->
+        <table class="table table-light table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Oponente</th>
+                    <th scope="col">Dificultad</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
         <?php
         foreach ($users as $user) {
-        ?>
-        <select name="rival_user" id="rival_user">
-            <option value="<?=$user->id?>">Oponente: <?=$user->username?></option>
-        </select>
-        <td><a href="index.php?tabla=offline&accion=partida&oponente=<?=$user->id?>"><button>Jugar</button></a></td>
-        <?php
+            $rivalTeam = $teamController->ver($user->id);
+            if ($rivalTeam != null) {
+                ?>
+                    <tr>
+                        <td><img class="digimonImage" src="../Administrador/assets/img/users/<?= $user->username?>/profile.png" width="50"></td>
+                        <td><?= $user->username == $_SESSION['username']->username ? 'Doppelganger ('.$user->username.')' : $user->username?></td>
+                        <td>
+                        <?php
+                        $rivalTeam = $teamController->ver($user->id);
+                        foreach ($rivalTeam as $rivalDigimon) {
+                        ?>
+                        Nivel <?=$digimonController->ver($rivalDigimon->digimon_id)->level?>
+                        <?php
+                        }
+                        ?>
+                        </td>
+                        <td><a href="index.php?tabla=offline&accion=partida&oponente=<?=$user->id?>"><button>Combatir</button></a></td>
+                    </tr>
+                <?php
+            }
         }
         ?>
-          
+            </tbody>
+        </table>  
         <!-- <table class="table table-light table-hover">
             <thead class="table-dark">
             <tr>

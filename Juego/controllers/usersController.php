@@ -27,57 +27,66 @@ class UsersController {
         echo json_encode($_SESSION["username"]->username);
     }
 
-    public function editar(string $id, array $arrayUser): void {
-        $error = false;
-        $errores = [];
-        if (isset($_SESSION["errores"])) {
-            unset($_SESSION["errores"]);
-            unset($_SESSION["datos"]);
-        }
-    
-        // ERRORES DE TIPO
-    
-        //campos NO VACIOS
-        $arrayNoNulos = ["username", "password", "digievolutions"];
-        $nulos = HayNulos($arrayNoNulos, $arrayUser);
-        if (count($nulos) > 0) {
-            $error = true;
-            for ($i = 0; $i < count($nulos); $i++) {
-                $errores[$nulos[$i]][] = "El campo {$nulos[$i]} NO puede estar vacio.";
-            }
-        }
-        
-        //CAMPOS UNICOS
-        $arrayUnicos = [];
-        if ($arrayUser["username"] != $arrayUser["usernameOriginal"]) $arrayUnicos[] = "username";
-    
-        foreach ($arrayUnicos as $CampoUnico) {
-            if ($this->model->exists($CampoUnico, $arrayUser[$CampoUnico])) {
-                $errores[$CampoUnico][] = "El {$CampoUnico}  {$arrayUser[$CampoUnico]}  ya existe.";
-                $error = true;
-            }
-        }
-    
-        //todo correcto
-        $editado = false;
-        if (!$error) $editado = $this->model->edit($id, $arrayUser);
-    
-        if ($editado == false) {
-            $_SESSION["errores"] = $errores;
-            $_SESSION["datos"] = $arrayUser;
-            $redireccion = "location:index.php?accion=editar&tabla=user&evento=modificar&id={$id}&error=true";
-        } else {
-            //vuelvo a limpiar por si acaso
-            unset($_SESSION["errores"]);
-            unset($_SESSION["datos"]);
-            //este es el nuevo numpieza
-            $id = $arrayUser["id"];
-            $redireccion = "location:index.php?accion=editar&tabla=user&evento=modificar&id={$id}";
-        }
-        header($redireccion);
-        exit ();
-        //vuelvo a la pagina donde estaba
+    public function getSessionID() {
+        header('Content-Type: application/json');
+        echo json_encode($_SESSION["username"]->id);
     }
+
+    public function editarEstadisticas(string $id, array $arrayUser) {
+        $this->model->editStats($id, $arrayUser);
+    }
+
+    // public function editar(string $id, array $arrayUser): void {
+    //     $error = false;
+    //     $errores = [];
+    //     if (isset($_SESSION["errores"])) {
+    //         unset($_SESSION["errores"]);
+    //         unset($_SESSION["datos"]);
+    //     }
+    
+    //     // ERRORES DE TIPO
+    
+    //     //campos NO VACIOS
+    //     $arrayNoNulos = ["username", "password", "digievolutions"];
+    //     $nulos = HayNulos($arrayNoNulos, $arrayUser);
+    //     if (count($nulos) > 0) {
+    //         $error = true;
+    //         for ($i = 0; $i < count($nulos); $i++) {
+    //             $errores[$nulos[$i]][] = "El campo {$nulos[$i]} NO puede estar vacio.";
+    //         }
+    //     }
+        
+    //     //CAMPOS UNICOS
+    //     $arrayUnicos = [];
+    //     if ($arrayUser["username"] != $arrayUser["usernameOriginal"]) $arrayUnicos[] = "username";
+    
+    //     foreach ($arrayUnicos as $CampoUnico) {
+    //         if ($this->model->exists($CampoUnico, $arrayUser[$CampoUnico])) {
+    //             $errores[$CampoUnico][] = "El {$CampoUnico}  {$arrayUser[$CampoUnico]}  ya existe.";
+    //             $error = true;
+    //         }
+    //     }
+    
+    //     //todo correcto
+    //     $editado = false;
+    //     if (!$error) $editado = $this->model->edit($id, $arrayUser);
+    
+    //     if ($editado == false) {
+    //         $_SESSION["errores"] = $errores;
+    //         $_SESSION["datos"] = $arrayUser;
+    //         $redireccion = "location:index.php?accion=editar&tabla=user&evento=modificar&id={$id}&error=true";
+    //     } else {
+    //         //vuelvo a limpiar por si acaso
+    //         unset($_SESSION["errores"]);
+    //         unset($_SESSION["datos"]);
+    //         //este es el nuevo numpieza
+    //         $id = $arrayUser["id"];
+    //         $redireccion = "location:index.php?accion=editar&tabla=user&evento=modificar&id={$id}";
+    //     }
+    //     header($redireccion);
+    //     exit ();
+    //     //vuelvo a la pagina donde estaba
+    // }
 
     public function buscar(string $campo = "usuario", string $metodo = "contains", string $texto = "", bool  $comprobarSiEsBorrable = false): array {
         $users = $this->model->search($texto, $campo, $metodo);
