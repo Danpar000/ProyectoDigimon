@@ -44,7 +44,7 @@ $userDigimon = $digiUserController->buscar("user_id", "equals", $_SESSION["usern
             linear-gradient(to right, rgba(255, 255, 255, 0.2) 1px, transparent 1px),
             linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 1px, transparent 1px);
         background-size: 20px 20px;
-        height: 200vh;
+        height: 100vh;
         width: 100%;
         margin: 0;
     }

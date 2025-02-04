@@ -81,7 +81,7 @@ $vista = router();
 
 <!-- div class="container-fluid" -->
 <div>
-    <div class="row">
+    <div class="">
         <?php
         require_once "views/layout/navbar.php";
         if (!file_exists($vista)) echo "Error, REVISA TUS RUTAS";

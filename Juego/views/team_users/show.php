@@ -38,7 +38,7 @@ $myTeam = $teamUsersController->ver($_SESSION["username"]->id);
             linear-gradient(to right, rgba(255, 255, 255, 0.2) 1px, transparent 1px),
             linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 1px, transparent 1px);
         background-size: 20px 20px;
-        height: 200vh;
+        height: 100vh;
         width: 100%;
         margin: 0;
     }
@@ -81,6 +81,14 @@ $myTeam = $teamUsersController->ver($_SESSION["username"]->id);
         display: flex;
         flex-direction: column;
         justify-content: start;
+    }
+
+    .baseContainer__selectForm {
+        text-align: center;
+    }
+
+    .baseContainer__selectForm a{
+        margin-top: 1rem;
     }
 
     .options__type {
@@ -221,6 +229,7 @@ $myTeam = $teamUsersController->ver($_SESSION["username"]->id);
     .card__container--selected {
         transform: scale(1.05);
         animation: brillo 3s infinite alternate;
+        color:white;
     }
 
     /* Diseño responsivo */
@@ -284,10 +293,9 @@ $myTeam = $teamUsersController->ver($_SESSION["username"]->id);
         <div>
     </div>
     <div class="baseContainer__selectForm" >
-        <div>
-            <label id="baseContainer__label" for="baseContainer__formSwapDigimons"><h5>Elige a un Digimon para Cambiarlo</h5></label>
-            <select id="baseContainer__formSwapDigimons" name="baseContainer__formSwapDigimons" class="form-select" aria-label="Selecciona un digimon" disabled></select>
-            <input type="number" hidden id="oldDigimon_id">
-        </div>
+        <label id="baseContainer__label" for="baseContainer__formSwapDigimons"><h5>Elige a un Digimon para Cambiarlo</h5></label>
+        <select id="baseContainer__formSwapDigimons" name="baseContainer__formSwapDigimons" class="form-select" aria-label="Selecciona un digimon" disabled></select>
+        <input type="number" hidden id="oldDigimon_id">
+        <a href="index.php" class="btn btn-primary">Volver</a>
     </div>
 </main>

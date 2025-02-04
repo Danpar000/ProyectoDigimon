@@ -262,9 +262,6 @@ if ($_SESSION["username"]->digievolutions <= 0) {
         
     }
     
-
-
-    
 </style>
 <main class="">
     <div class="baseContainer baseContainer--level<?=$digimon->level?>">
