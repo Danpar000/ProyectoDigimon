@@ -1,0 +1,4 @@
+El fichero SQL está dentro de la carpeta Administrador.
+Si no va en PHPMyAdmin se puede usar Workbench.
+
+El trabajo fue realizado por Manuel Raja y Daniel Paredes.
