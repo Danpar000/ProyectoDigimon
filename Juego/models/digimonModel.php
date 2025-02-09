@@ -1,7 +1,4 @@
 <?php
-// $ruta=(!isset($_REQUEST["json"]))?"":"../";
-// require_once $ruta. "config/db.php";
-// require_once $ruta. "assets/php/funciones.php";
 if (isset($_REQUEST["funcion"])) {
     require_once "../config/db.php";
     require_once "../assets/php/funciones.php";
@@ -126,12 +123,7 @@ class DigimonModel {
         }
 
         $sentencia = $this->conexion->prepare("SELECT * FROM digimons WHERE $campo LIKE :info");
-        
-        // Que es esto?
-        //ojo el si ponemos % siempre en comillas dobles "
-        // $arrayDatos=[":usuario"=>"%$usuario%" ];
-
-
+    
         $arrayDatos=[":info"=>$info];
         $resultado = $sentencia->execute($arrayDatos);
         if (!$resultado) return [];
@@ -140,11 +132,6 @@ class DigimonModel {
     }
 
     public function deepSearch (array $info, array $campo):array {
-        // if ($campo != "id" || $campo != "name" || $campo != "attack" || $campo != "defense" || $campo != "type" || $campo != "level") {
-        //     header("location: index.php");
-        //     exit();
-        // }
-
         $sentencia = $this->conexion->prepare("SELECT * FROM digimons WHERE $campo[0] = :valor1 AND $campo[1] = :valor2");
         $arrayDatos = [":valor1" => $info[0], ":valor2"=>$info[1]+1];
         $resultado = $sentencia->execute($arrayDatos);

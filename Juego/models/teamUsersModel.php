@@ -74,21 +74,6 @@ class TeamUsersModel {
         return $notInTeam;
     }
 
-    // public function delete (int $id):bool {
-    //     $sql="DELETE FROM team_users WHERE digimon_id =:digimon_id";
-    //     try {
-    //         $sentencia = $this->conexion->prepare($sql);
-    //         //devuelve true si se borra correctamente
-    //         //false si falla el borrado
-    //         $sentencia->execute([":digimon_id" => $id]);
-    //         return ($sentencia->rowCount ()<=0)?false:true;
-    //     }  catch (Exception $e) {
-    //         echo 'Excepción capturada: ',  $e->getMessage(), "<br>";
-    //         return false;
-    //     }
-    // }
-
-
     public function edit (int $user_id, int $newDigimon_id, int $oldDigimon_id):bool{
         try {
             $sql = "UPDATE team_users SET digimon_id = :newDigimon_id WHERE user_id = :user_id AND digimon_id = :oldDigimon_id";
@@ -104,61 +89,6 @@ class TeamUsersModel {
             return false;
         }
     }
-
-
-    // public function edit (int $idAntiguo, array $arrayDigimonUser):bool{
-    //     try {
-    //         $sql = "UPDATE digimons_users SET user_id = :user_id,
-    //                 digimon_id = :digimon_id WHERE id = :id";
-
-    //         $arrayDatos=[
-    //             ":id" => $idAntiguo,
-    //             ":user_id" => $arrayDigimonUser["user_id"],
-    //             ":digimon_id" => $arrayDigimonUser["digimon_id"]
-    //         ];
-
-    //         $sentencia = $this->conexion->prepare($sql);
-    //         return $sentencia->execute($arrayDatos); 
-    //     } catch (Exception $e) {
-    //         echo 'Excepción capturada: ',  $e->getMessage(), "<br>";
-    //         return false;
-    //     }
-    // }
-
-    // public function search (string $info, string $campo, string $tipo):array {
-    //     if ($campo == "id" || $campo == "user_id" || $campo == "digimon_id") {
-    //         switch ($tipo){
-    //             case 'startswith':
-    //                 $info="$info%";
-    //                 break;
-    //             case 'endswith':
-    //                 $info="%$info";
-    //                 break;
-    //             case 'contains':
-    //                 $info="%$info%";
-    //                 break;
-    //             case 'equals':
-    //                 $info="$info";
-    //                 break;
-    //         }
-    //     } else {
-    //         header("location: index.php");
-    //         exit();
-    //     }
-
-    //     $sentencia = $this->conexion->prepare("SELECT * FROM digimons_users WHERE $campo LIKE :info");
-        
-    //     // Que es esto?
-    //     //ojo el si ponemos % siempre en comillas dobles "
-    //     // $arrayDatos=[":usuario"=>"%$usuario%" ];
-
-
-    //     $arrayDatos=[":info"=>$info];
-    //     $resultado = $sentencia->execute($arrayDatos);
-    //     if (!$resultado) return [];
-    //     $digimonsUsers = $sentencia->fetchAll(PDO::FETCH_OBJ); 
-    //     return $digimonsUsers; 
-    // }
 
     public function exists(string $campo, string $valor):bool{
         $sentencia = $this->conexion->prepare("SELECT * FROM team_users WHERE $campo=:valor");

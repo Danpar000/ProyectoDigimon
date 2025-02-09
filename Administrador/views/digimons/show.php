@@ -1,15 +1,16 @@
 <?php
 require_once "controllers/digimonsController.php";
-if (!isset($_REQUEST['id'])) {
+if (!isset($_REQUEST["id"]) || filter_var($_REQUEST["id"], FILTER_VALIDATE_INT) == false) {
     header("location:index.php");
     exit();
-    // si no ponemos exit despues de header redirecciona al finalizar la pagina 
-    // ejecutando el código que viene a continuación, aunque no llegues a verlo
-    // No poner exit puede provocar acciones no esperadas dificiles de depurar
 }
 $id = $_REQUEST['id'];
 $controlador = new DigimonsController();
 $digimon = $controlador->ver($id);
+if (empty($digimon)) {
+    header("location:index.php");
+    exit();
+}
 
 isset($digimon->next_evolution_id) ? $next_digimon = $controlador->ver($digimon->next_evolution_id) : "";
 ?>

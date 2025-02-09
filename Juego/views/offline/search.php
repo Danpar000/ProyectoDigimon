@@ -13,17 +13,8 @@ $users=$controllerUser->listar();
 <link rel="stylesheet" href="assets/css/offline/search.css">
 <main class="">
     <div class="baseContent">
+        <a href="index.php" class="btn btn-secondary btn-back">Volver</a>
         <div class="table__Container">
-            <!-- <div class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h3>Salas |</h3>
-                <form action="" method="POST" class="d-flex">
-                    <div class="input-group">
-                        <input type="text" required class="form-control" id="busqueda" name="busqueda" placeholder="Buscar ID">
-                        <button type="submit" class="btn btn-success"><i class="fas fa-search"></i> Buscar</button>
-                    </div>
-                </form>
-            </div> -->
-            <!-- <h1>daojdaso</h1> -->
             <table class="">
                 <thead class="table-dark">
                     <tr>

@@ -26,36 +26,17 @@ function router (){
                 "crear"=>"create.php",
                 "guardar"=>"store.php",
                 "ver"=> "show.php",
-                // "listar"=>"list.php",
 		        "buscar"=>"search.php",
-                "borrar"=>"delete.php",
-                "editar"=>"edit.php"
+                "borrar"=>"delete.php"
         ],
         "digimons"=>[
                 "crear"=>"create.php",
                 "guardar"=>"store.php",
                 "ver"=> "show.php",
-                // "listar"=>"list.php",
 		        "buscar"=>"search.php",
                 "borrar"=>"delete.php",
                 "editar"=>"edit.php"
-        ],
-        "digimons_users"=>[
-            "crear"=>"create.php",
-            "guardar"=>"store.php",
-            "ver"=> "show.php",
-            "buscar"=>"search.php",
-            "borrar"=>"delete.php",
-            "editar"=>"edit.php"
-        ],
-        "team_users"=>[
-            "crear"=>"create.php",
-            "guardar"=>"store.php",
-            "ver"=> "show.php",
-            "buscar"=>"search.php",
-            "borrar"=>"delete.php",
-            "editar"=>"edit.php"
-        ],
+        ]
     ];
     $tabla= $_REQUEST["tabla"];
     if (!isset($tablas[$tabla])) return"views/404.php"; 

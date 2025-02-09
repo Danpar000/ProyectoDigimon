@@ -121,12 +121,6 @@ class DigimonUsersModel {
         }
 
         $sentencia = $this->conexion->prepare("SELECT * FROM digimons_users WHERE $campo LIKE :info ORDER BY digimon_id");
-        
-        // Que es esto?
-        //ojo el si ponemos % siempre en comillas dobles "
-        // $arrayDatos=[":usuario"=>"%$usuario%" ];
-
-
         $arrayDatos=[":info"=>$info];
         $resultado = $sentencia->execute($arrayDatos);
         if (!$resultado) return [];

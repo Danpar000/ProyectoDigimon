@@ -5,7 +5,7 @@ $mensaje = "";
 $clase = "alert alert-success";
 $visibilidad = "hidden";
 $mostrarDatos = false;
-$controlador = new usersController();
+$controlador = new UsersController();
 $info = "";
 if (!isset($_REQUEST['campo'], $_REQUEST['tipo'])) {
     $campo = 'username';
@@ -20,7 +20,7 @@ if (isset($_REQUEST["evento"])) {
     switch ($_REQUEST["evento"]) {
         case "todos":
             $users = $controlador->listar();
-            // $users = $controlador->buscar(comprobarSiEsBorrable: true);
+            $users = $controlador->buscar(comprobarSiEsBorrable: true);
             $mostrarDatos = true;
             break;
         case "filtrar":
@@ -94,7 +94,6 @@ if (isset($_REQUEST["evento"])) {
                         <th scope="col">Digievoluciones</th>
                         <th scope="col"></th>
                         <th scope="col"></th>
-                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -106,14 +105,13 @@ if (isset($_REQUEST["evento"])) {
                             <td class="image"><img src="assets/img/users/<?= $user->username?>/profile.png" width="75"></td>
                             <td><?=$user->username?></td>
                             <td><?=$user->digievolutions?></td>
-                            
-                            <td><a class="btn btn-success" href="index.php?tabla=user&accion=editar&id=<?=$id?>"><i class="fas fa-pencil-alt"></i> Editar</a></td>
                             <td><a class="btn btn-warning" href="index.php?tabla=user&accion=ver&id=<?= $id ?>"><i class="fas fa-eye"> Ver</i></td>
                             <td>
                                 <?php
-                                $disable="";$ruta="index.php?tabla=user&accion=borrar&id={$id}&usuario=<?= $user->username?>";
+                                $disable="";
+                                $ruta="index.php?tabla=user&accion=borrar&id={$id}&usuario={$user->username}";
                                 if (isset($user->esBorrable) && $user->esBorrable==false){
-                                $disable="disabled"; $ruta="#";
+                                    $disable="disabled"; $ruta="#";
                                 }
                                 ?>
                                 <a class="btn btn-danger <?= $disable?>" href="<?=$ruta?>"><i class="fa fa-trash"></i> Borrar</a>

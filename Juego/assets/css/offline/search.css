@@ -9,7 +9,9 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-content: center;
     align-items: center;
     height: 100vh;
     margin-top: -4rem;
@@ -44,9 +46,8 @@ tr {
 
 thead {
     position: sticky;
-    top: 0; /* Esto mantiene el thead en la parte superior */
-    background-color: white; /* Agrega un fondo para que sea visible sobre el contenido */
-    z-index: 1; /* Asegura que el thead esté sobre el contenido de la tabla */
+    color: black;
+        
 }
 
 thead tr {
@@ -64,6 +65,8 @@ tr:last-child td:last-child{
 th {
     width: 100%;
     font-size: x-large;
+    color: white;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(91, 0, 0, 1) 4%, rgba(0, 0, 0, 1) 100%);
 }
 
 
@@ -78,7 +81,7 @@ td {
 
 td a {
     font-size: 2.5vw;
-    color: black
+    color: white
 }
 
 
@@ -100,3 +103,6 @@ td:first-child :first-child {
     width: 60%;
 }
 
+a:hover {
+    color: white;
+}

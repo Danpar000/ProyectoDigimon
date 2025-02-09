@@ -1,6 +1,5 @@
 <?php
 require_once "models/userModel.php";
-// require_once "controllers/projectsController.php";
 
 class UsersController { 
     private $model;
@@ -111,8 +110,6 @@ class UsersController {
     public function borrar(int $id, string $username): void {
         $borrado = $this->model->delete($id, $username);
         $redireccion = "location:index.php?accion=listar&tabla=user&evento=borrar&id={$id}&username={$username}";
-        //$redireccion = "location:index.php?accion=listar&tabla=user&evento=borrar&id={$id}&nombre={$nombre}&usuario={$usuario}";
-        //$redireccion = "location:index.php?accion=listar&tabla=user&evento=borrar&id={$id}";
         if ($borrado == false) $redireccion .=  "&error=true";
         header($redireccion);
         exit();
@@ -170,25 +167,26 @@ class UsersController {
         //vuelvo a la pagina donde estaba
     }
 
-    public function buscar(string $campo = "usuario", string $metodo = "contains", string $texto = "", bool  $comprobarSiEsBorrable = false): array {
+    public function buscar(string $campo = "username", string $metodo = "contains", string $texto = "", bool  $comprobarSiEsBorrable = false): array {
         $users = $this->model->search($texto, $campo, $metodo);
 
-        // if ($comprobarSiEsBorrable) {
-        //     foreach ($users as $user) {
-        //         $user->esBorrable = $this->esBorrable($user);
-        //     }
-        // }
+        if ($comprobarSiEsBorrable) {
+            foreach ($users as $user) {
+                $user->esBorrable = $this->esBorrable($user);
+            }
+        }
         return $users;
     }
 
-    // private function esBorrable(stdClass $user): bool
-    // {
-    //     $projectController = new ProjectsController();
-    //     $borrable = true;
-    //     // si ese usuario está en algún proyecto, No se puede borrar.
-    //     if (count($projectController->buscar("user_id", "igual", $user->id)) > 0)
-    //         $borrable = false;
+    private function esBorrable(stdClass $user): bool
+    {
+        require_once "controllers/digimonsUsersController.php";
+        $DigimonsUsersController = new DigimonsUsersController();
+        $borrable = true;
+        if (count($DigimonsUsersController->buscar("user_id", "equals", $user->id)) > 0) {
+            $borrable = false;
+        }
 
-    //     return $borrable;
-    // }
+        return $borrable;
+    }
 }

@@ -34,9 +34,7 @@ function router (){
 
     $tablas=[
         "user"=>[//defino las acciones permitidas para esa tabla
-                "guardar"=>"store.php",
-                "ver"=> "show.php",
-                "editar"=>"edit.php"
+                "ver"=> "show.php"
         ],
         "digimons"=>[
                 "ver"=> "show.php",
@@ -50,11 +48,8 @@ function router (){
               "digievolucionar"=>"evolutions.php",
         ],
         "team_users"=>[
-            //"crear"=>"create.php",
             "guardar"=>"store.php",
             "ver"=> "show.php",
-            //"buscar"=>"search.php",
-            //"borrar"=>"delete.php",
             "editar"=>"edit.php"
         ],
         "offline"=>[

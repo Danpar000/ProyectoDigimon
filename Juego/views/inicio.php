@@ -4,9 +4,15 @@ $digiUserController = new DigimonsUsersController();
 $userHasDigimon = $digiUserController->ver($_SESSION["username"]->id);
 
 if ($userHasDigimon == null) {
-    header("location: index.php?tabla=digimons_users&accion=evento");
-    exit();
+  header("location: index.php?tabla=digimons_users&accion=evento");
+  exit();
 }
+if (isset($_SESSION['digievolutionReward']) || isset($_SESSION['digimonReward'])) {
+  header('location:index.php?tabla=offline&accion=premio');
+  exit;
+}
+
+
 
 ?>
 <style>

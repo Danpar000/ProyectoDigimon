@@ -64,72 +64,78 @@ CREATE TABLE team_users (
     CONSTRAINT fk_team_users_digimons FOREIGN KEY (digimon_id) REFERENCES digimons(id) ON UPDATE CASCADE
 );
 
+SET FOREIGN_KEY_CHECKS = 0;
+
 INSERT INTO users(username, password) VALUES("dani", "$2y$10$0cAboDTqx/BycOAYBupeOeGdXQdQHzjax6Hb5HM9rbYX6QX4mzif6");
+INSERT INTO users(username, password) VALUES("jesus", "$10$iY8JAOtOZCb/i64joKyjBuGJ0lfDwdBWWyhS1wcanVT5v4dSn2gDW");
 
 INSERT INTO digimons (name, health, attack, defense, speed, type, level, next_evolution_id) VALUES
 -- Tipo Vacuna
-('Koromon', 100, 50, 30, 40, 'Vacuna', 1, NULL),
-('Agumon', 150, 80, 50, 50, 'Vacuna', 2, NULL),
-('Greymon', 200, 120, 80, 60, 'Vacuna', 3, NULL),
+('Koromon', 100, 50, 30, 40, 'Vacuna', 1, 2),
+('Agumon', 150, 80, 50, 50, 'Vacuna', 2, 3),
+('Greymon', 200, 120, 80, 60, 'Vacuna', 3, 4),
 ('MetalGreymon', 250, 160, 110, 70, 'Vacuna', 4, NULL),
-('Gabumon', 140, 60, 40, 45, 'Vacuna', 1, NULL),
-('Garurumon', 190, 130, 90, 65, 'Vacuna', 3, NULL),
+('Gabumon', 140, 60, 40, 45, 'Vacuna', 1, 6),
+('Garurumon', 150, 80, 60, 55, 'Vacuna', 2, 7),
+('Garudamon', 190, 130, 90, 65, 'Vacuna', 3, 8),
 ('WereGarurumon', 240, 170, 120, 75, 'Vacuna', 4, NULL),
-('Patamon', 120, 50, 40, 55, 'Vacuna', 1, NULL),
-('Angemon', 180, 100, 70, 65, 'Vacuna', 2, NULL),
+('Patamon', 120, 50, 40, 55, 'Vacuna', 1, 10),
+('Angemon', 180, 100, 70, 65, 'Vacuna', 2, 11),
 ('MagnaAngemon', 230, 150, 100, 80, 'Vacuna', 3, NULL),
 
 -- Tipo Virus
-('Tsukaimon', 110, 45, 35, 40, 'Virus', 1, NULL),
-('Devimon', 160, 85, 55, 55, 'Virus', 2, NULL),
-('Myotismon', 210, 130, 90, 70, 'Virus', 3, NULL),
+('Tsukaimon', 110, 45, 35, 40, 'Virus', 1, 13),
+('Devimon', 160, 85, 55, 55, 'Virus', 2, 14),
+('Myotismon', 210, 130, 90, 70, 'Virus', 3, 15),
 ('VenomMyotismon', 260, 170, 120, 85, 'Virus', 4, NULL),
-('Impmon', 130, 60, 40, 50, 'Virus', 1, NULL),
-('Beelzebumon', 180, 110, 80, 65, 'Virus', 2, NULL),
-('Belphemon', 230, 160, 110, 75, 'Virus', 3, NULL),
+('Impmon', 130, 60, 40, 50, 'Virus', 1, 17),
+('Beelzebumon', 180, 110, 80, 65, 'Virus', 2, 18),
+('Belphemon', 230, 160, 110, 75, 'Virus', 3, 19),
 ('Lucemon', 280, 190, 130, 90, 'Virus', 4, NULL),
-('Dracmon', 100, 40, 30, 35, 'Virus', 1, NULL),
+('Dracmon', 100, 40, 30, 35, 'Virus', 1, 21),
 ('Baomon', 140, 60, 40, 50, 'Virus', 2, NULL),
 
 -- Tipo Planta
-('Tanemon', 100, 40, 35, 40, 'Planta', 1, NULL),
-('Palmon', 150, 75, 55, 55, 'Planta', 2, NULL),
-('Togemon', 200, 115, 85, 65, 'Planta', 3, NULL),
+('Tanemon', 100, 40, 35, 40, 'Planta', 1, 23),
+('Palmon', 150, 75, 55, 55, 'Planta', 2, 24),
+('Togemon', 200, 115, 85, 65, 'Planta', 3, 25),
 ('Lillymon', 250, 155, 115, 75, 'Planta', 4, NULL),
-('Hagurumon', 110, 40, 35, 35, 'Planta', 1, NULL),
-('Lalamon', 140, 60, 50, 50, 'Planta', 2, NULL),
-('Lopmon', 190, 100, 75, 60, 'Planta', 3, NULL),
+('Hagurumon', 110, 40, 35, 35, 'Planta', 1, 27),
+('Lalamon', 140, 60, 50, 50, 'Planta', 2, 28),
+('Lopmon', 190, 100, 75, 60, 'Planta', 3, 29),
 ('Turuiemon', 240, 150, 110, 70, 'Planta', 4, NULL),
-('Bokomon', 130, 70, 50, 45, 'Planta', 2, NULL),
-('Rosemon', 270, 180, 120, 85, 'Planta', 4, NULL),
+('Salamon', 100, 35, 20, 20, 'Planta', 1, 31),
+('Bokomon', 130, 70, 50, 45, 'Planta', 2, 32),
+('Rosemon', 270, 180, 120, 85, 'Planta', 3, NULL),
 
 -- Tipo Animal
-('Elecmon', 120, 50, 40, 55, 'Animal', 1, NULL),
-('Leomon', 170, 90, 70, 60, 'Animal', 2, NULL),
-('GrapLeomon', 220, 130, 100, 70, 'Animal', 3, NULL),
+('Elecmon', 120, 50, 40, 55, 'Animal', 1, 34),
+('Leomon', 170, 90, 70, 60, 'Animal', 2, 35),
+('GrapLeomon', 220, 130, 100, 70, 'Animal', 3, 36),
 ('SaberLeomon', 270, 180, 130, 85, 'Animal', 4, NULL),
-('Nyaromon', 100, 45, 35, 50, 'Animal', 1, NULL),
-('Diaboromon', 280, 180, 140, 90, 'Animal', 4, NULL),
-('Tentomon', 120, 50, 40, 55, 'Animal', 1, NULL),
-('Kabuterimon', 170, 90, 70, 65, 'Animal', 2, NULL),
-('MegaKabuterimon', 220, 130, 100, 75, 'Animal', 3, NULL),
+('Nyaromon', 100, 45, 35, 50, 'Animal', 1, 38),
+('Nefertimon', 150, 55, 20, 60, 'Animal', 2, 39),
+('Diaboromon', 280, 180, 140, 90, 'Animal', 3, NULL),
+('Tentomon', 120, 50, 40, 55, 'Animal', 1, 41),
+('Kabuterimon', 170, 90, 70, 65, 'Animal', 2, 42),
+('MegaKabuterimon', 220, 130, 100, 75, 'Animal', 3, 43),
 ('Wargreymon', 260, 160, 120, 80, 'Animal', 4, NULL),
-('Falcomon', 130, 60, 45, 55, 'Animal', 1, NULL),
-('Hawkmon', 180, 100, 70, 65, 'Animal', 2, NULL),
-('Shurimon', 230, 140, 100, 75, 'Animal', 3, NULL),
+('Falcomon', 130, 60, 45, 55, 'Animal', 1, 45),
+('Hawkmon', 180, 100, 70, 65, 'Animal', 2, 46),
+('Shurimon', 230, 140, 100, 75, 'Animal', 3, 47),
 ('ShiningGreymon', 270, 180, 130, 85, 'Animal', 4, NULL),
 
 -- Tipo Elemental
-('ElementalMon', 110, 50, 30, 40, 'Elemental', 1, NULL),
-('AguaMon', 160, 80, 50, 55, 'Elemental', 2, NULL),
-('FuegoMon', 210, 120, 80, 70, 'Elemental', 3, NULL),
+('ElementalMon', 110, 50, 30, 40, 'Elemental', 1, 49),
+('AguaMon', 160, 80, 50, 55, 'Elemental', 2, 50),
+('FuegoMon', 210, 120, 80, 70, 'Elemental', 3, 51),
 ('MangoMon', 260, 160, 110, 85, 'Elemental', 4, NULL),
-('MonMonMon', 140, 60, 40, 50, 'Elemental', 1, NULL),
-('RaMon', 220, 130, 90, 70, 'Elemental', 3, NULL),
-('CoMon', 270, 170, 120, 85, 'Elemental', 4, NULL),
-('TierraMon', 120, 50, 40, 55, 'Elemental', 1, NULL),
-('HieloMon', 180, 100, 70, 65, 'Elemental', 2, NULL),
-('TestMon', 230, 150, 100, 75, 'Elemental', 3, NULL),
+('MonMonMon', 140, 60, 40, 50, 'Elemental', 1, 53),
+('RaMon', 220, 130, 90, 70, 'Elemental', 2, 54),
+('CoMon', 270, 170, 120, 85, 'Elemental', 3, NULL),
+('TierraMon', 120, 50, 40, 55, 'Elemental', 1, 56),
+('HieloMon', 180, 100, 70, 65, 'Elemental', 2, 57),
+('TestMon', 230, 150, 100, 75, 'Elemental', 3, 58),
 ('CopiaMon', 200, 69, 69, 69, 'Elemental', 4, NULL);
 
 INSERT INTO moves (name, description, power, accuracy) VALUES
@@ -202,404 +208,9 @@ VALUES
 (1, 54), (3, 54), (5, 54), (8, 54),
 (2, 55), (4, 55), (6, 55), (10, 55);
 
+SET FOREIGN_KEY_CHECKS = 1;
 
+select * from users;
+update users set digievolutions = 10 where id = 1;
 
-
--- Chicchimon
--- Koromon
--- Tsunomon
--- Poyomon
--- Tokomon
--- Tanemon
--- Pagumon
--- Kapurimon
--- Kuramon
--- Puttimon
--- Chibomon
--- Dorimon
--- Calumon
--- Gigimon
--- Gummymon
--- Kokomon
--- Tsumemon
--- Minomon
--- Wanyamon
--- Budmon
--- Botamon
--- Sunmon
--- Moonmon
--- Monodramon
--- Agumon
--- Veemon
--- Guilmon
--- Dorumon
--- Betamon
--- Gabumon
--- Patamon
--- Biyomon
--- Palmon
--- Tentomon
--- Gotsumon
--- Otamamon
--- Gomamon
--- Tapirmon
--- DemiDevimon
--- ToyAgumon
--- Hagurumon
--- Salamon
--- Wormmon
--- Hawkmon
--- Armadillomon
--- Terriermon
--- Lopmon
--- Renamon
--- Impmon
--- Keramon
--- Falcomon
--- Penguinmon
--- Goburimon
--- Kumamon
--- Kotemon
--- Shamamon
--- SnowGoburimon
--- Syakomon
--- SnowAgumon
--- BlackAgumon
--- Muchomon
--- Crabmon
--- Floramon
--- Gizamon
--- Lalamon
--- Aruraumon
--- BlackToyAgumon
--- Tsukaimon
--- BlackPawnChessmon
--- Gaomon
--- Dfalcomon
--- Kudamon
--- Kamemon
--- Dracmon
--- WhitePawnChessmon
--- DotAgumon
--- Kunemon
--- Mushroomon
--- Solarmon
--- Candlemon
--- Kokuwamon
--- DoKunemon
--- Coronamon
--- Lunamon
--- Mekanorimon
--- Greymon
--- Tyrannomon
--- Devimon
--- Airdramon
--- Seadramon
--- Numemon
--- Kabuterimon
--- Garurumon
--- Angemon
--- Veggiemon
--- Ogremon
--- Bakemon
--- Sukamon
--- Kokatorimon
--- Leomon
--- Kuwagamon
--- Raremon
--- Gekomon
--- Gatomon
--- Wizardmon
--- Togemon
--- Guardromon
--- ExVeemon
--- Stingmon
--- Birdramon
--- Ankylomon
--- Gargomon
--- Growlmon
--- Kyubimon
--- Kurisarimon
--- Seasarmon
--- Vilemon
--- Aquilamon
--- Roachmon
--- Dinohumon
--- Hookmon
--- Grizzmon
--- Dorugamon
--- Reptiledramon
--- Apemon
--- Starmon
--- BomberNanimon
--- Kiwimon
--- Unimon
--- Sorcerymon
--- DKTyrannomon
--- Akatorimon
--- PlatinumSukamon
--- Ikkakumon
--- Minotarumon
--- Icemon
--- DarkLizardmon
--- Flarerizamon
--- GeoGreymon
--- Gaogamon
--- Diatrymon
--- Reppamon
--- Sunflowmon
--- Gawappamon
--- Sangloupmon
--- Peckmon
--- Drimogemon
--- NiseDrimogemon
--- MoriShellmon
--- Wendigomon
--- Fugamon
--- Tsuchidarumon
--- Tortamon
--- Ebidramon
--- Octomon
--- Gesomon
--- Coelamon
--- Shellmon
--- Frigimon
--- Geremon
--- Hyogamon
--- KaratsukiNumemon
--- IceDevimon
--- Dolphmon
--- Saberdramon
--- Woodmon
--- Snimon
--- Flymon
--- Yanmamon
--- SandYanmamon
--- RedVegiemon
--- Weedmon
--- Ninjamon
--- Kogamon
--- Omekamon
--- Clockmon
--- Thunderballmon
--- Tankmon
--- Nanimon
--- Golemon
--- Monochromon
--- Mojyamon
--- JungleMojyamon
--- Deputymon
--- Centarumon
--- Devidramon
--- Dokugumon
--- Veedramon
--- Musyamon
--- WhiteKnightChessmon
--- BlackKnightChessmon
--- Firamon
--- Lekismon
--- Volcanomon
--- MetalGreymon
--- Monzaemon
--- SkullGreymon
--- MetalMamemon
--- Andromon
--- Etemon
--- Megadramon
--- Piximon
--- Digitamamon
--- Mammothmon
--- BlueMegakabuterimon
--- Okuwamon
--- ShogunGekomon
--- Angewomon
--- Tylomon
--- Scorpiomon
--- MegaSeadramon
--- Dragomon
--- BlackWarGarurumon
--- BlueWarGarurumon
--- Myotismon
--- LadyDevimon
--- Garudamon
--- Blossomon
--- Lillymon
--- RedMegaKabuterimon
--- 221
--- Datamon
--- Cyberdramon
--- MagnaAngemon
--- Paildramon
--- Dinobeemon
--- Antylamon
--- Arukenimon
--- Mummymon
--- WarGrowlmon
--- Rapidmon
--- Taomon
--- Parrotmon
--- Infermon
--- BlackRapidmon
--- Pandamon
--- Marine Devimon
--- Karatenmon
--- Kyukimon
--- Sinduramon
--- Pipismon
--- DoruGreymon
--- Divermon
--- Kimeramon
--- Triceramon
--- Deramon
--- Silphymon
--- SuperStarmon
--- BlackWarGrowlmon
--- Zudomon
--- WhamonUltimate
--- Mamemon
--- Toucanmon
--- Aurumon
--- Meteormon
--- Gigadramon
--- RiseGreymon
--- MachGaogamon
--- Tyilinmon
--- Lilamon
--- Shadramon
--- Matadormon
--- Kabukimon
--- Cherrymon
--- Garbagemon
--- LucemonChaosMode
--- MameTyramon
--- Giromon
--- Vademon
--- MetalTyrannomon
--- Tekkamon
--- BigMamemon
--- EXTyrannomon
--- Vermilimon
--- Phantomon
--- Vajiramon
--- AeroVeedramon
--- GrapLeomon
--- Knightmon
--- Brachiomon
--- Allomon
--- Lanksmon
--- Shaujinmon
--- Yatagaramon
--- BishopChessmon
--- RockChessmon
--- Flaremon
--- Crescemon
--- Flamedramon
--- Magnamon
--- Prairiemon
--- Kongoumon
--- Seahomon
--- Shurimon
--- Kenkimon
--- Ponchomon
--- ArgomonUltimate
--- Shakkoumon
--- Lampmon
--- HerculesKabuterimon
--- SaberLeomon
--- MetalEtemon
--- MarineAngemon
--- GigaSeadramon
--- Piedmon
--- Creepymon
--- Phoenixmon
--- Puppetmon
--- Rosemon
--- WarGreymon
--- MetalGarurumon
--- MachineDramon
--- VenomMyotismon
--- Omnimon
--- ImperialdramonDragonMode
--- ImperialdramonFighterMode
--- ImperialdramonPaladinMode
--- Ghoulmon
--- Seraphimon
--- HiAndromon
--- Devitamamon
--- GoodCherubimon
--- EvilCherubimon
--- Gallantmon
--- Gallantmon Crimson Mode
--- Mega Gargomon
--- Sakuyamon
--- Diaboromon
--- Neptunmon
--- Pukumon
--- Gryphonmon
--- Preciomon
--- Armageddemon
--- MaloMyotismon
--- Imperialdramon Dragon Mode Black
--- Boltmon
--- PrinceMamemon
--- Ophanimon
--- Zanbamon
--- BlackSaintGargomon
--- Jijimon
--- Babamon
--- Anubismon
--- Parasimon
--- Cannondramon
--- SL Angemon
--- Eaglemon
--- Dorugoramon
--- Beelzemon
--- Bantyo Leomon
--- Dark Dramon
--- Apocalymon
--- Ebemon
--- Gulfmon
--- Goldramon
--- ZeedMillenniummon
--- BlackGhoulmon
--- Kuzuhamon
--- Chaos Gallantmon
--- MetalSeadramon
--- Valkyrimon
--- Justimon
--- Vikemon
--- BlackWarGreymon
--- Skull Mammothmon
--- GrandisKuwagamon
--- Pharaohmon
--- Susanoomon
--- Alphamon
--- Magna Dramon
--- Millenniummon
--- MoonMillenniummon
--- Megidramon
--- Sleipmon
--- ShineGreymon
--- MirageGaogamon
--- JumboGamemon
--- Ravemon
--- QueenChessmon
--- KingChessmon
--- Chronomon Holy Mode
--- Lilithmon
--- Varodurumon
--- Apollomon
--- Dianamon
--- Shine Greymon Burst Mode
--- Shine Greymon Ruin Mode
--- MirageGaogamon Burst Mode
--- RavemonBurstMode
--- Lotosmon
--- DotShineGreymon
--- DotMirageGaogamon
--- BeelzemonBlastMode
--- RosemonBurstMode
--- ArgomonMega
--- Minervamon
--- Duftmon
--- Chaosmon
+select * from team_users;

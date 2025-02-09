@@ -2,9 +2,11 @@
 if (isset($_REQUEST["funcion"])) {
     require_once "../models/digimonUsersModel.php";
     require_once "../controllers/usersController.php";
+    require_once "../controllers/teamUsersController.php";
 } else {
     require_once "models/digimonUsersModel.php";
     require_once "controllers/usersController.php";
+    require_once "controllers/teamUsersController.php";
 }
 
 class DigimonsUsersController { 
@@ -77,6 +79,9 @@ class DigimonsUsersController {
             $userController = new UsersController();
             $userController->editarDigievolucion($user_id, $digiEvolutions-1);
             $_SESSION["username"]->digievolutions = $_SESSION["username"]->digievolutions-1;
+
+            $teamUserController = new TeamUsersController();
+            $teamUserController->editarEquipo($_SESSION["username"]->id, $nextEvolution->id, $preEvolution->id);
             header("location: index.php?tabla=digimons_users&accion=listar");
             exit();
         }
@@ -86,43 +91,6 @@ class DigimonsUsersController {
         $this->model->insert(["user_id" => $user_id, "digimon_id" => $digimon_id]);
     }
 
-    // public function crear (array $arrayTeam):void {
-    //     $error = false;
-    //     $errores = [];
-    //     if (isset($_SESSION["errores"])) {
-    //         unset($_SESSION["errores"]);
-    //         unset($_SESSION["datos"]);
-    //     }
-    
-    //     // ERRORES DE TIPO
-    
-    //     //campos NO VACIOS
-    //     $arrayNoNulos = ["user_id", "digimon_id"];
-    //     $nulos = HayNulos($arrayNoNulos, $arrayTeam);
-    //     if (count($nulos) > 0) {
-    //         $error = true;
-    //         for ($i = 0; $i < count($nulos); $i++) {
-    //             $errores[$nulos[$i]][] = "El campo {$nulos[$i]} NO puede estar vacio";
-    //         }
-    //     }
-        
-    //     $id = null;
-    //     if (!$error) $id = $this->model->insert ($arrayTeam);
-
-    //     $redireccion="location:index.php?tabla=digimonUser&accion=crear";
-    //     if ($id == null) {
-    //         $_SESSION["errores"] = $errores;
-    //         $_SESSION["datos"] = $arrayTeam;
-    //         $redireccion.="&error=true&id={$id}";
-    //     } else {
-    //         unset($_SESSION["errores"]);
-    //         unset($_SESSION["datos"]);
-    //         $redireccion = "location:index.php?tabla=digimonUser&accion=ver&id=".$id;
-    //     }
-        
-    //     header ($redireccion);
-    //     exit();
-    // }
 
     public function ver(int $user_id): ?stdClass {
         return $this->model->read($user_id);
@@ -135,47 +103,6 @@ class DigimonsUsersController {
     public function borrarDigi(int $user_id, int $digimon_id): void {
         $this->model->deleteDigi($user_id, $digimon_id);
     }
-
-    // public function editar(string $id, array $arrayTeam): void {
-    //     $error = false;
-    //     $errores = [];
-    //     if (isset($_SESSION["errores"])) {
-    //         unset($_SESSION["errores"]);
-    //         unset($_SESSION["datos"]);
-    //     }
-    
-    //     // ERRORES DE TIPO
-    
-    //     //campos NO VACIOS
-    //     $arrayNoNulos = ["user_id", "digimon_id"];
-    //     $nulos = HayNulos($arrayNoNulos, $arrayTeam);
-    //     if (count($nulos) > 0) {
-    //         $error = true;
-    //         for ($i = 0; $i < count($nulos); $i++) {
-    //             $errores[$nulos[$i]][] = "El campo {$nulos[$i]} NO puede estar vacio.";
-    //         }
-    //     }
-    
-    //     //todo correcto
-    //     $editado = false;
-    //     if (!$error) $editado = $this->model->edit($id, $arrayTeam);
-    
-    //     if ($editado == false) {
-    //         $_SESSION["errores"] = $errores;
-    //         $_SESSION["datos"] = $arrayTeam;
-    //         $redireccion = "location:index.php?accion=editar&tabla=digimonUser&evento=modificar&id={$id}&user_id={$arrayTeam['user_id']}&digimon_id={$arrayTeam['digimon_id']}&error=true";
-    //     } else {
-    //         //vuelvo a limpiar por si acaso
-    //         unset($_SESSION["errores"]);
-    //         unset($_SESSION["datos"]);
-    //         //este es el nuevo numpieza
-    //         $id = $arrayTeam["id"];
-    //         $redireccion = "location:index.php?accion=editar&tabla=digimonUser&evento=modificar&id={$id}&user_id={$arrayTeam['user_id']}&digimon_id={$arrayTeam['digimon_id']}";
-    //     }
-    //     header($redireccion);
-    //     exit ();
-    //     //vuelvo a la pagina donde estaba
-    // }
 
      public function buscar(string $campo = "name", string $metodo = "contains", string $texto = "", bool  $comprobarSiEsBorrable = false): array
     {

@@ -1,0 +1,81 @@
+body {
+    height: 100vh;
+    width: 100vw;
+    overflow: scroll;
+}
+
+.combateContainer {
+    margin-top: -4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    background: rgb(0,0,0);
+    background: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,33,163,1) 100%);
+    height: 100vh;
+    width: 100vw;
+}
+
+.combateContainer__results {
+    margin: 20rem;
+    border: solid 1rem black;
+    background-color: black;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.results__1,
+.results__2,
+.results__3 {
+    text-align: center;
+    border:0.5rem solid black;
+}
+
+.results__1__data,
+.results__2__data,
+.results__3__data{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  gap: 3rem;
+  overflow: hidden;
+}
+
+.results__1__data *,
+.results__2__data *,
+.results__3__data *{
+  font-weight: bold;
+  font-size: 3vh;
+}
+
+.results__1--Ganado,
+.results__2--Ganado,
+.results__3--Ganado {
+    background: rgb(0,255,171);
+    background: radial-gradient(circle, rgba(0,255,171,1) 0%, rgba(163,255,240,1) 100%);
+    border-radius: 1rem;
+}
+
+.results__1--Perdido,
+.results__2--Perdido,
+.results__3--Perdido {
+    background: rgb(87,0,0);
+    background: linear-gradient(0deg, rgba(87,0,0,1) 0%, rgba(255,0,0,1) 100%);
+    border-radius: 1rem;
+}
+
+.combateContainer__results__bottom {
+    background-color: black;
+    text-align: center;
+    width: 100%;
+    height: 4rem;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+.combateContainer__results__bottom *{
+    height: 80%;
+    width: 80%;
+}

@@ -4,7 +4,6 @@ if (isset($_REQUEST["funcion"])) {
 } else {
     require_once "models/digimonModel.php";
 }
-// require_once "models/digimonModel.php";
 class DigimonsController { 
     private $model;
 

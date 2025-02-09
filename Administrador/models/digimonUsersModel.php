@@ -7,23 +7,6 @@ class DigimonUsersModel {
     public function __construct() {
         $this->conexion = db::conexion();
     }
-   
-    public function insert(array $digimonUser):?int { //devuelve entero o null 
-        $sql="INSERT INTO digimons_users(user_id, digimon_id)
-        VALUES (:user_id, :digimon_id);";
-        try{
-            $sentencia = $this->conexion->prepare($sql);
-            $arrayDatos=[
-                ":user_id" => $digimonUser["user_id"],
-                ":digimon_id" => $digimonUser["digimon_id"]
-        ];
-        $sentencia->execute($arrayDatos);
-        return $this->conexion->lastInsertId();
-        }catch (Exception $e){
-            echo 'Excepción capturada al insertar: ',  $e->getMessage(), "<br>";
-            return null;
-        }
-    }
 
     public function read(int $id): ?stdClass {
         try{
@@ -45,39 +28,6 @@ class DigimonUsersModel {
         $digimonsUsers = $sentencia->fetchAll(PDO::FETCH_OBJ);      
 
         return $digimonsUsers;
-    }
-
-    public function delete (int $id):bool {
-        $sql="DELETE FROM digimons_users WHERE id =:id";
-        try {
-            $sentencia = $this->conexion->prepare($sql);
-            //devuelve true si se borra correctamente
-            //false si falla el borrado
-            $sentencia->execute([":id" => $id]);
-            return ($sentencia->rowCount ()<=0)?false:true;
-        }  catch (Exception $e) {
-            echo 'Excepción capturada: ',  $e->getMessage(), "<br>";
-            return false;
-        }
-    }
-
-    public function edit (int $idAntiguo, array $arrayDigimonUser):bool{
-        try {
-            $sql = "UPDATE digimons_users SET user_id = :user_id,
-                    digimon_id = :digimon_id WHERE id = :id";
-
-            $arrayDatos=[
-                ":id" => $idAntiguo,
-                ":user_id" => $arrayDigimonUser["user_id"],
-                ":digimon_id" => $arrayDigimonUser["digimon_id"]
-            ];
-
-            $sentencia = $this->conexion->prepare($sql);
-            return $sentencia->execute($arrayDatos); 
-        } catch (Exception $e) {
-            echo 'Excepción capturada: ',  $e->getMessage(), "<br>";
-            return false;
-        }
     }
 
     public function search (string $info, string $campo, string $tipo):array {
@@ -103,22 +53,10 @@ class DigimonUsersModel {
 
         $sentencia = $this->conexion->prepare("SELECT * FROM digimons_users WHERE $campo LIKE :info");
         
-        // Que es esto?
-        //ojo el si ponemos % siempre en comillas dobles "
-        // $arrayDatos=[":usuario"=>"%$usuario%" ];
-
-
         $arrayDatos=[":info"=>$info];
         $resultado = $sentencia->execute($arrayDatos);
         if (!$resultado) return [];
         $digimonsUsers = $sentencia->fetchAll(PDO::FETCH_OBJ); 
         return $digimonsUsers; 
-    }
-
-    public function exists(string $campo, string $valor):bool{
-        $sentencia = $this->conexion->prepare("SELECT * FROM digimons_users WHERE $campo=:valor");
-        $arrayDatos = [":valor" => $valor];
-        $resultado = $sentencia->execute($arrayDatos);
-        return (!$resultado || $sentencia->rowCount()<=0)?false:true;
     }
 }

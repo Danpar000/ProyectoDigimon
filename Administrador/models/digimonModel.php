@@ -120,12 +120,6 @@ class DigimonModel {
         }
 
         $sentencia = $this->conexion->prepare("SELECT * FROM digimons WHERE $campo LIKE :info");
-        
-        // Que es esto?
-        //ojo el si ponemos % siempre en comillas dobles "
-        // $arrayDatos=[":usuario"=>"%$usuario%" ];
-
-
         $arrayDatos=[":info"=>$info];
         $resultado = $sentencia->execute($arrayDatos);
         if (!$resultado) return [];
@@ -134,11 +128,6 @@ class DigimonModel {
     }
 
     public function deepSearch (array $info, array $campo):array {
-        // if ($campo != "id" || $campo != "name" || $campo != "attack" || $campo != "defense" || $campo != "type" || $campo != "level") {
-        //     header("location: index.php");
-        //     exit();
-        // }
-
         $query = "SELECT * from digimons
         WHERE $campo[0] = :valor0
         AND $campo[1] = :valor1

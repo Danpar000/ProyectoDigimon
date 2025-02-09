@@ -121,7 +121,6 @@
     text-decoration: none;
   }
   
-  /* Filtro oscuro para botones */
   div.fila1 button::before, div.fila2 button::before {
     content: "";
     position: absolute;
@@ -202,7 +201,7 @@ div.fila1 a:hover button::before, div.fila2 a:hover button::before {
    #miEquipo,
    #combateOffline,
    #combateOnline {
-     background-size: 100%; /* 🔥 Se asegura que todos tengan el mismo tamaño inicial */
+     background-size: 100%;
      transition: transform 0.3s ease-out, background-size 0.3s ease-out;
 }
 
@@ -210,7 +209,7 @@ div.fila1 a:hover button::before, div.fila2 a:hover button::before {
 #miEquipo:hover,
 #combateOffline:hover,
 #combateOnline:hover {
-  background-size: 120%; /* 🔥 Ahora sí se animará correctamente */
+  background-size: 120%;
 }
 /* ======================
    ANIMACIÓN DE BORDE BRILLANTE
@@ -231,7 +230,7 @@ div.fila1 a:hover button::before, div.fila2 a:hover button::before {
     box-shadow: 0 0 0rem rgba(255, 255, 255, 0.2);
   }
   50% {
-    box-shadow: 0 0 1.5rem rgba(255, 255, 255, 0.6); /* 🔥 Brillo fuerte */
+    box-shadow: 0 0 1.5rem rgba(255, 255, 255, 0.6);
   }
   100% {
     box-shadow: 0 0 0rem rgba(255, 255, 255, 0.2);
@@ -240,7 +239,7 @@ div.fila1 a:hover button::before, div.fila2 a:hover button::before {
 
 div.fila1 a button,
 div.fila2 a button {
-  animation: glowEffect 3s infinite ease-in-out; /* 🔄 Se repite cada 3s */
+  animation: glowEffect 3s infinite ease-in-out;
 }
 
 
@@ -263,13 +262,12 @@ div.fila1 a button, div.fila2 a button {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: black; /* Inicia en blanco */
-  z-index: 1000; /* Se asegura que esté por encima de todo */
+  background-color: black;
+  z-index: 1000;
   pointer-events: none;
   opacity: 1;
 }
 
-/* Animación de fundido desde blanco */
 @keyframes fadeInFromWhite {
   from { opacity: 1; }
   to { opacity: 0; }
@@ -279,13 +277,12 @@ div.fila1 a button, div.fila2 a button {
   animation: fadeInFromWhite 0.5s ease-out forwards;
 }
 
-/* Animación de oscurecimiento */
 @keyframes fadeToBlack {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
 .fade-out {
-  background-color: black; /* Se oscurece */
+  background-color: black;
   animation: fadeToBlack 0.5s ease-out forwards;
 }

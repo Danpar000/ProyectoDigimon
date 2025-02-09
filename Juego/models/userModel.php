@@ -147,12 +147,6 @@ class UserModel
         }
 
         $sentencia = $this->conexion->prepare("SELECT * FROM users WHERE $campo LIKE :info");
-        
-        // Que es esto?
-        //ojo el si ponemos % siempre en comillas dobles "
-        // $arrayDatos=[":usuario"=>"%$usuario%" ];
-
-
         $arrayDatos=[":info"=>$info];
         $resultado = $sentencia->execute($arrayDatos);
         if (!$resultado) return [];
@@ -168,11 +162,8 @@ class UserModel
         $resultado = $sentencia->execute($arrayDatos);
         if (!$resultado) return null;
         $user = $sentencia->fetch(PDO::FETCH_OBJ);
-        //fetch duevelve el objeto stardar o false si no hay persona
 
         return ($user == false || !password_verify($password,$user->password)) ? null : $user;
-
-        // return $user;
     }
     public function exists(string $campo, string $valor):bool{
         $sentencia = $this->conexion->prepare("SELECT * FROM users WHERE $campo=:valor");

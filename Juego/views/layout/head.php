@@ -20,11 +20,11 @@
   <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
     <div class="imgContainer"><a class="px-3" href="index.php"><img src="../Juego/assets/img/logo.png" alt=""></a></div>
 
-    <!-- WEBSOCKET -->
-    <p>Cliente WebSocket</p>
-    <input type="text" id="mensaje" placeholder="Escribe un mensaje">
-    <button id="sendMessage" onclick="enviarMensaje()">Enviar</button>
-    <ul id="mensajes"></ul>
+    <!-- WEBSOCKET -->  
+    <p style="opacity: 0;">Cliente WebSocket</p>
+    <input style="opacity: 0;" type="text" id="mensaje" placeholder="Escribe un mensaje" disabled>
+    <button style="opacity: 0; "id="sendMessage" onclick="enviarMensaje()" disabled>Enviar</button>
+    <ul style="opacity: 0;" id="mensajes"></ul>
     <!-- ---------------------- -->
 
     <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">

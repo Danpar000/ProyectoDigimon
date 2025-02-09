@@ -3,16 +3,17 @@ require_once "controllers/usersController.php";
 require_once "controllers/digimonsController.php";
 require_once "controllers/teamUsersController.php";
 require_once "controllers/digimonsUsersController.php";
-if (!isset($_REQUEST['id'])) {
+if (!isset($_REQUEST['id']) || filter_var($_REQUEST["id"], FILTER_VALIDATE_INT) == false) {
     header("location:index.php");
     exit();
-    // si no ponemos exit despues de header redirecciona al finalizar la pagina 
-    // ejecutando el código que viene a continuación, aunque no llegues a verlo
-    // No poner exit puede provocar acciones no esperadas dificiles de depurar
 }
 $id = $_REQUEST['id'];
 $controlador = new usersController();
 $user = $controlador->ver($id);
+if (empty($user)) {
+  header("Location: index.php");
+  exit();
+}
 
 $digimonController = new DigimonsController;
 $teamUsersController = new TeamUsersController;
@@ -21,6 +22,7 @@ $cantidad = $digimonUserController->buscar("user_id", "equals", $user->id);
 ?>
 <link rel="stylesheet" href="assets/css/user/show.css">
 <main>
+  <a href="index.php" class="btn btn-secondary">Volver</a>
   <div class="background <?= ($id == $_SESSION['username']->id) ? 'background--self' : 'background--enemy'?>">
     <div class="baseContainer">
       <div class="baseContainer__leftContainer">
@@ -35,7 +37,8 @@ $cantidad = $digimonUserController->buscar("user_id", "equals", $user->id);
           <div class="midContainer__rowContainer">
             <div class="rowContainer__stats rowContainer__stats--wins">
               <h4>- Partidas Jugadas -</h4>
-              <h1> <?=$user->wins+$user->loses?> Partidas </h1>
+              <!-- <h1> <?=$user->wins+$user->loses?> Partidas </h1> -->
+              <h1> <?=$user->loses?> Derrotas </h1>
               <h1> <?=$user->wins?> Victorias </h1>
             </div>
             <div class="rowContainer__stats rowContainer__stats--ownedDigimon">

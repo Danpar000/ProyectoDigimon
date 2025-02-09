@@ -1,0 +1,9 @@
+body {
+    background-image: url("../../img/login.png");
+    background-size: cover;
+}
+
+.logo {
+    width: 100%;
+    margin-bottom: 2rem;
+}

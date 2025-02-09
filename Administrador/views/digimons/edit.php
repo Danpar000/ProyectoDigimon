@@ -1,7 +1,7 @@
 <?php
 require_once "controllers/digimonsController.php";
 //recoger datos
-if (!isset($_REQUEST["id"])) {
+if (!isset($_REQUEST["id"]) || is_nan($_REQUEST["id"])) {
     header('location:index.php?accion=listar');
     unset($_SESSION["datos"]);
     unset($_SESSION["errores"]);

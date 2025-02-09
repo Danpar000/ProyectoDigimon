@@ -15,42 +15,30 @@ if ($userHasDigimon != null) {
 $digiUserController->generarDigimon($_SESSION["username"]->id);
 $userHasDigimon = $digiUserController->buscar("user_id", "equals", $_SESSION["username"]->id);
 ?>
-<style>
-    .card{
-        width: 18rem;
-        text-align: center;
-        padding: 5px;
-    }
-
-    .card div *{
-        margin: 2px 0px;
-    }
-</style>
-<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-    <div class="d-flex justify-content-start flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3">¡Bienvenido! Toma un regalo por registrarte</h1>
+<link href="assets/css/digimons_users/event.css" rel="stylesheet">
+<main>
+    <div class="d-flex justify-content-center">
+        <h1 style="color:white;" class="h3">¡Bienvenido! Toma un regalo por registrarte</h1>
     </div>
-    <div id="contenido">
-        <h4>Has obtenido los siguientes Digimon</h4>
+    <div class="contenido">
         <?php
         foreach($userHasDigimon as $digimonOwned) {
             $digimon = $digimonsController->ver($digimonOwned->digimon_id);
             ?>
-            <div class="card" style="width: 18rem;">
-                <div>
-                    <h5 class="card-title">ID: <?= $digimon->id ?> <br>DIGIMON: <?= $digimon->name ?></h5>
-                    <p class="card-text">
-                        Nivel: <?= $digimon->level?> <br>
-                        Tipo: <?= $digimon->type?><br>
-                        Vida: <?= $digimon->health?> <br>
-                        Ataque: <?= $digimon->attack?> <br>
-                        Defensa: <?= $digimon->defense?><br>
-                        Velocidad: <?= $digimon->speed?> <br>
-                        Siguiente evolución: <?= isset($next_digimon) ? $next_digimon->name : "Ninguna" ?><br>
-                    </p>
-                    <img src="../Administrador/assets/img/digimons/<?= $digimon->name?>/base.png" width="150"><br>
-                    <a href="index.php" class="btn btn-primary">Aceptar</a>
-                </div>
+            <div class="baseContainer">
+                <h3 style="color: white;">¡Has obtenido un <?= $digimon->name?>!</h3>
+                <a href="index.php?tabla=digimons&accion=ver&id=<?=$digimon->id?>">
+                    <?php
+                    echo ("<div class='card__container card__container--animated card__container--level{$digimon->level}'>")
+                    ?>
+                        <div class="card__topArea">
+                            <h5><?=$digimon->type?></h5>
+                            <h4 class="card__title"><?= $digimon->name?> | Lvl <?=$digimon->level?></h4>
+                            <img class="card__image" src="../Administrador/assets/img/digimons/<?= $digimon->name?>/base.png"><br>
+                        </div>
+                    </div>
+                </a>
+                <a class="btn btn-success" href="index.php">Aceptar</a>
             </div>
             <?php
         }
